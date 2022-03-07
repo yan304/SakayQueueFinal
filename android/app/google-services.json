@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "565381317293",
+    "project_id": "sakayqueue-4f4df",
+    "storage_bucket": "sakayqueue-4f4df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565381317293:android:0309f2c5b7d9c220d33c24",
+        "android_client_info": {
+          "package_name": "com.sakayqueuess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565381317293-uufah6qvsg6galmapt8dtma27d2824kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sakayqueuess",
+            "certificate_hash": "5064c3c9322e5896c6dd6f703810f959b1919e9d"
+          }
+        },
+        {
+          "client_id": "565381317293-lt2tgv49pnngmicsn55h5nh5tprd483c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPV8ksikAeUuo7IkTV0U-LZ-lNlKASbt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565381317293-lt2tgv49pnngmicsn55h5nh5tprd483c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
