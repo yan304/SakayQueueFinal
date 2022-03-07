@@ -22,36 +22,21 @@ export default function FareDiscounts({back}) {
                             placeholder="   Student"
                         />
                     </View>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                        <Text style={styles.buttonLabel}>
-                            Loading...
-                        </Text>
-                    </Pressable>
+                    <Text style={styles.buttonStyle}>
+                        Loading...
+                    </Text>
+                    <Text style={styles.buttonStyle}>
+                        Loading...
+                    </Text>
+                    <Text style={styles.buttonStyle}>
+                        Loading...
+                    </Text>
+                    <Text style={styles.buttonStyle}>
+                        Loading...
+                    </Text>
+                    <Text style={styles.buttonStyle}>
+                        Loading...
+                    </Text>
                 </View>
             </View>
         </View>
@@ -83,12 +68,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     buttonStyle: {
-        width: "100%",
-        display: "flex",
+        padding: 25,
+        fontSize: 15,
         marginTop: 15,
+        width: "100%",
+        color: "black",
+        display: "flex",
         marginBottom: 15,
         borderRadius: 19,
-        alignItems: "center",
+        textAlign: "center",
         backgroundColor: "#D9D9D9",
     },
     backButtonStyle: {
@@ -147,7 +135,6 @@ const styles = StyleSheet.create({
     backButton: {
         color: "black",
         backgroundColor: "#F3F1F1",
-        paddingTop: 50,
         paddingBottom: 30,
         paddingLeft: 10,
     },

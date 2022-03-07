@@ -14,14 +14,12 @@ export default function MyTicket({back}) {
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
-                    <Pressable style={styles.titleStyle}>
-                        <Text style={styles.titleLabel}>
-                            My Ticket(s)
-                        </Text>
-                    </Pressable>
+                    <Text style={styles.titleStyle}>
+                        My Ticket(s)
+                    </Text>
                 </View>
                 <View style={styles.transparent}>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
+                    <View style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
                         <Text style={styles.buttonDateLabel}>
                             December 6, 2021
                         </Text>
@@ -52,8 +50,8 @@ export default function MyTicket({back}) {
                                 </Text>
                             </View>
                         </View>
-                    </Pressable>
-                    <Pressable style={styles.otherInformation} onPress={() => Alert.alert('Discount')}>
+                    </View>
+                    <View style={styles.otherInformation} onPress={() => Alert.alert('Discount')}>
                         <View style={{ display: "flex", flexDirection: "row" }}>
                             <View style={{ width: "40%" }}>
                                 <Text style={styles.buttonLabel}>
@@ -80,7 +78,7 @@ export default function MyTicket({back}) {
                                 </Text>
                             </View>
                         </View>
-                    </Pressable>
+                    </View>
                 </View>
             </View>
         </View>
@@ -112,12 +110,15 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     titleStyle: {
-        width: "100%",
-        display: "flex",
+        padding: 25,
+        fontSize: 25,
         marginTop: 10,
-        marginBottom: -30,
+        width: "100%",
+        color: "black",
+        display: "flex",
         borderRadius: 19,
-        alignItems: "center",
+        marginBottom: -30,
+        textAlign: "center",
     },
     buttonStyle: {
         width: "100%",
@@ -172,11 +173,6 @@ const styles = StyleSheet.create({
         color: "black",
         fontWeight: "700"
     },
-    titleLabel: {
-        padding: 25,
-        fontSize: 25,
-        color: "black",
-    },
     searchArea: {
         display: "flex",
         width: "100%",
@@ -221,7 +217,6 @@ const styles = StyleSheet.create({
     backButton: {
         color: "black",
         backgroundColor: "#F3F1F1",
-        paddingTop: 50,
         paddingBottom: 30,
         paddingLeft: 10,
     },

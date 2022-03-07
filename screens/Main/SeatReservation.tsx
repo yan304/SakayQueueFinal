@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { Button } from 'react-native-paper';
-import {TextInput, StyleSheet, Pressable, Text, View, Alert, Image} from "react-native";
+import {TouchableOpacity, StyleSheet, ScrollView, Text, View} from "react-native";
 
 export default function SeatReservation({back, data, backData}) {
     const [search, onSearch] = useState("");
@@ -33,107 +33,103 @@ export default function SeatReservation({back, data, backData}) {
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
-                    <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
+                    <View style={styles.buttonStyle}>
                         <Text style={styles.buttonDateLabel}>
-                            <Pressable style={styles.titleStyle}>
-                                <Text style={styles.titleLabel}>
-                                    Choose {data} Seat
-                                </Text>
-                            </Pressable>
+                            <Text style={styles.titleLabel}>
+                                Choose {data} Seat
+                            </Text>
                         </Text>
                         <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between", marginTop: -15}}>
-                            <View style={{ backgroundColor: "#14FF00", height: 14, width: 14, marginBottom: 5, marginRight: 5 }}></View>
+                            <View style={{ backgroundColor: "#14FF00", height: 14, width: 14, marginBottom: 5, marginRight: 5 }}/>
                                 <Text style={styles.buttonDateLabel}>
-                                    <Pressable style={styles.titleStyle}>
-                                        <Text style={styles.titleOptionLabel}>
-                                            Available
-                                        </Text>
-                                    </Pressable>
+                                    <Text style={styles.titleOptionLabel}>
+                                        Available
+                                    </Text>
                                 </Text>
-                            <View style={{ backgroundColor: "#A4A3A3", height: 14, width: 14, marginBottom: 5, marginLeft: 10, marginRight: 5 }}></View>
+                            <View style={{ backgroundColor: "#A4A3A3", height: 14, width: 14, marginBottom: 5, marginLeft: 10, marginRight: 5 }}/>
                                 <Text style={styles.buttonDateLabel}>
-                                    <Pressable style={styles.titleStyle}>
-                                        <Text style={styles.titleOptionLabel}>
-                                            Occupied
-                                        </Text>
-                                    </Pressable>
+                                    <Text style={styles.titleOptionLabel}>
+                                        Occupied
+                                    </Text>
                                 </Text>
                         </View>
-                    </Pressable>
+                    </View>
                 </View>
             </View>
+            <ScrollView style={{ height: '100%' }}>
             <View style={styles.transparentSeats}>
-                {[1,21,41].map(items => (
-                    <View style={{ marginBottom: 20 }}>
-                        {[items,items+5,items+10,items+15].map(item => (
-                            <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between" }}>
-                                {occupied.includes(item) ?
-                                    <View style={{ backgroundColor: "#A4A3A3", height: 35, width: 40, borderRadius: 5, margin: 3}}>
-                                        <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white"  onPress={() => handleSeat(item)}/>
-                                    </View>
-                                :
-                                    <Pressable key={item} onPress={() => handleSeat(item)}>
-                                        <View style={{ backgroundColor: "#14FF00", height: 35, width: 40, borderRadius: 5, margin: 3}} />
-                                    </Pressable>
-                                }
-                                {occupied.includes(item + 1) ?
-                                    <View style={{ backgroundColor: "#A4A3A3", height: 35, width: 40, borderRadius: 5, margin: 3}}>
-                                        <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 1)}/>
-                                    </View>
-                                :
-                                    <Pressable key={item+1} onPress={() => handleSeat(item + 1)}>
-                                        <View style={{ backgroundColor: "#14FF00", height: 35, width: 40, borderRadius: 5, margin: 3 }} />
-                                    </Pressable>
-                                }
-                                {occupied.includes(item + 2) ?
-                                    <View style={{ backgroundColor: "#A4A3A3", height: 35, width: 40, borderRadius: 5, margin: 3}}>
-                                        <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 2)}/>
-                                    </View>
-                                :
-                                    <Pressable key={item+2} onPress={() => handleSeat(item + 2)}>
-                                        <View style={{ backgroundColor: "#14FF00", height: 35, width: 40, borderRadius: 5, margin: 3 }} />
-                                    </Pressable>
-                                }
-                                <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between", marginLeft: 50 }}>
-                                    {occupied.includes(item + 3) ?
-                                        <View style={{ backgroundColor: "#A4A3A3", height: 35, width: 40, borderRadius: 5, margin: 3}}>
-                                            <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 3)}/>
+                    {[1,21,41].map(items => (
+                        <View style={{ marginBottom: 10 }}>
+                            {[items,items+5,items+10,items+15].map(item => (
+                                <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between" }}>
+                                    {occupied.includes(item) ?
+                                        <View style={{ backgroundColor: "#A4A3A3", height: 25, width: 30, borderRadius: 5, margin: 2}}>
+                                            <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white"  onPress={() => handleSeat(item)}/>
                                         </View>
                                     :
-                                        <Pressable key={item+3} onPress={() => handleSeat(item + 3)}>
-                                            <View style={{ backgroundColor: "#14FF00", height: 35, width: 40, borderRadius: 5, margin: 3 }} />
-                                        </Pressable>
+                                        <TouchableOpacity key={item} onPress={() => handleSeat(item)}>
+                                            <View style={{ backgroundColor: "#14FF00", height: 25, width: 30, borderRadius: 5, margin: 3}} />
+                                        </TouchableOpacity>
                                     }
-                                    {occupied.includes(item + 4) ?
-                                        <View style={{ backgroundColor: "#A4A3A3", height: 35, width: 40, borderRadius: 5, margin: 3}}>
-                                            <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 4)}/>
+                                    {occupied.includes(item + 1) ?
+                                        <View style={{ backgroundColor: "#A4A3A3", height: 25, width: 30, borderRadius: 5, margin: 3}}>
+                                            <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 1)}/>
                                         </View>
                                     :
-                                        <Pressable key={item+4} onPress={() => handleSeat(item + 4)}>
-                                            <View style={{ backgroundColor: "#14FF00", height: 35, width: 40, borderRadius: 5, margin: 3 }} />
-                                        </Pressable>
+                                        <TouchableOpacity key={item+1} onPress={() => handleSeat(item + 1)}>
+                                            <View style={{ backgroundColor: "#14FF00", height: 25, width: 30, borderRadius: 5, margin: 3 }} />
+                                        </TouchableOpacity>
                                     }
+                                    {occupied.includes(item + 2) ?
+                                        <View style={{ backgroundColor: "#A4A3A3", height: 25, width: 30, borderRadius: 5, margin: 3}}>
+                                            <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 2)}/>
+                                        </View>
+                                    :
+                                        <TouchableOpacity key={item+2} onPress={() => handleSeat(item + 2)}>
+                                            <View style={{ backgroundColor: "#14FF00", height: 25, width: 30, borderRadius: 5, margin: 3 }} />
+                                        </TouchableOpacity>
+                                    }
+                                    <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between", marginLeft: 50 }}>
+                                        {occupied.includes(item + 3) ?
+                                            <View style={{ backgroundColor: "#A4A3A3", height: 25, width: 30, borderRadius: 5, margin: 3}}>
+                                                <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 3)}/>
+                                            </View>
+                                        :
+                                            <TouchableOpacity key={item+3} onPress={() => handleSeat(item + 3)}>
+                                                <View style={{ backgroundColor: "#14FF00", height: 25, width: 30, borderRadius: 5, margin: 3 }} />
+                                            </TouchableOpacity>
+                                        }
+                                        {occupied.includes(item + 4) ?
+                                            <View style={{ backgroundColor: "#A4A3A3", height: 25, width: 30, borderRadius: 5, margin: 3}}>
+                                                <Button icon='check-circle-outline' labelStyle={{fontSize: 23, marginLeft: 25}} color="white" onPress={() => handleSeat(item + 4)}/>
+                                            </View>
+                                        :
+                                            <TouchableOpacity key={item+4} onPress={() => handleSeat(item + 4)}>
+                                                <View style={{ backgroundColor: "#14FF00", height: 25, width: 30, borderRadius: 5, margin: 3 }} />
+                                            </TouchableOpacity>
+                                        }
+                                    </View>
                                 </View>
-                            </View>
-                        ))}
-                    </View>
-                ))}
+                            ))}
+                        </View>
+                    ))}
             </View>
             <View style={styles.transparent}>
                 {occupied.length < 1 ?
-                    <Pressable style={styles.ticketDisabledButtonStyle }>
+                    <TouchableOpacity style={styles.ticketDisabledButtonStyle }>
                         <Text style={styles.buttonLabel}>
                             Continue
                         </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 :
-                    <Pressable style={styles.ticketButtonStyle} onPress={() => backData(occupied)}>
+                    <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => backData(occupied)}>
                         <Text style={styles.buttonLabel}>
                             Continue
                         </Text>
-                    </Pressable>
+                    </TouchableOpacity>
                 }
             </View>
+            </ScrollView>
         </View>
     );
 }
@@ -163,6 +159,7 @@ const styles = StyleSheet.create({
         display: "flex",
         padding: 25,
         paddingTop: 1,
+        paddingBottom: 0,
         borderRadius: 31,
         alignItems: "center",
         backgroundColor: "#FFFFFF"
@@ -216,6 +213,7 @@ const styles = StyleSheet.create({
     },
     buttonDateLabel: {
         padding: 2,
+        paddingTop: 10,
         fontSize: 15,
         color: "#00000094",
     },
@@ -248,13 +246,20 @@ const styles = StyleSheet.create({
     titleLabel: {
         padding: 25,
         fontSize: 25,
-        fontWeight: "700",
+        width: "100%",
         color: "black",
+        display: "flex",
+        borderRadius: 19,
+        fontWeight: "700",
+        textAlign: "center",
     },
     titleOptionLabel: {
-        display: "flex",
         fontSize: 20,
+        width: "100%",
         color: "black",
+        display: "flex",
+        borderRadius: 19,
+        textAlign: "center",
     },
     searchArea: {
         display: "flex",
@@ -300,7 +305,6 @@ const styles = StyleSheet.create({
     backButton: {
         color: "black",
         backgroundColor: "#F3F1F1",
-        paddingTop: 50,
         paddingBottom: 30,
         paddingLeft: 10,
     },

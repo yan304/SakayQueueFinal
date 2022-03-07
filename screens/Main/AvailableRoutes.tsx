@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-// import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 import SeatReservation from './SeatReservation'
 import ConfirmReservation from './ConfirmReservation'
-import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert, Dimensions   } from "react-native";
+import { ImageBackground, Image, StyleSheet, Text, View, Dimensions   } from "react-native";
 
 export default function AvailableRoutes({back}) {
     const [bus, setBus] = useState('');
@@ -36,31 +36,40 @@ export default function AvailableRoutes({back}) {
         :
          <View style={styles.image}>
              <View style={styles.mapContainer}>
-                 <View style={styles.map}>
+                 <View style={styles.mapContainer}>
+                     <MapView
+                         style={styles.map}
+                         initialRegion={{
+                             latitude: 37.78825,
+                             longitude: -122.4324,
+                             latitudeDelta: 0.0922,
+                             longitudeDelta: 0.0421,
+                         }}
+                     />
                  </View>
              </View>
              <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
-                <View>
-                    <Text style={styles.buttonPlaceLeftLabel}>
-                        ONGOING
+                    <View>
+                        <Text style={styles.buttonPlaceLeftLabel}>
+                            ONGOING
+                        </Text>
+                    </View>
+                    <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A01")}>
+                        BUS - A01
                     </Text>
-                </View>
-                <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A01")}>
-                    BUS - A01
-                </Text>
-                <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A02")}>
-                    BUS - A02
-                </Text>
-                <Text style={styles.noteStyle}>
-                    <Text style={{ fontWeight: "bold" }}>
-                        NOTE:&nbsp;
+                    <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A02")}>
+                        BUS - A02
                     </Text>
-                    View the map to locate the
-                </Text>
-                <Text style={styles.noteStyle}>
-                    nearest ongoing bus near you
-                </Text>
+                    <Text style={styles.noteStyle}>
+                        <Text style={{ fontWeight: "bold" }}>
+                            NOTE:&nbsp;
+                        </Text>
+                        View the map to locate the
+                    </Text>
+                    <Text style={styles.noteStyle}>
+                        nearest ongoing bus near you
+                    </Text>
                 </View>
             </View>
         </View>
@@ -69,10 +78,10 @@ export default function AvailableRoutes({back}) {
 
 const styles = StyleSheet.create({
     container: {
-            flex: 1,
+        height: '100%'
     },
     image: {
-        flex: 1,
+        height: '100%',
         backgroundColor: "#F3F1F1",
         justifyContent: "center"
     },
@@ -96,7 +105,7 @@ const styles = StyleSheet.create({
     },
     transparent: {
         padding: 5,
-        paddingBottom: 45,
+        paddingBottom: 10,
         width: "100%",
         display: "flex",
         borderRadius: 31,
@@ -137,7 +146,6 @@ const styles = StyleSheet.create({
         padding: 8,
         fontSize: 20,
         width: "90%",
-        marginTop: 100,
         color: "white",
         display: "flex",
         marginBottom: 15,

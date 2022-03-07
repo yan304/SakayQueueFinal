@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import AvailableRoutes from './AvailableRoutes'
 import { Button } from 'react-native-paper';
-import {TextInput, StyleSheet, Pressable, Text, View, Alert, Image} from "react-native";
+import {TextInput, StyleSheet, TouchableOpacity, Text, View, Alert, Image} from "react-native";
 
 export default function RoutesReservation({back}) {
     const [search, onSearch] = useState("");
@@ -12,7 +12,7 @@ export default function RoutesReservation({back}) {
         setAvailableRoutesState(true);
     }
     return (
-        availableRoutesState ? <AvailableRoutes /> :
+        availableRoutesState ? <AvailableRoutes back={() => setAvailableRoutesState(false)}/> :
             <View>
                 <View style={styles.backButton}>
                     <Button icon='left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
@@ -29,7 +29,7 @@ export default function RoutesReservation({back}) {
                                 placeholder="   CDO to Iligan"
                             />
                         </View>
-                        <View style={styles.buttonStyle} onPress={() => handleAvailableRoutes()}>
+                        <TouchableOpacity style={styles.buttonStyle} onPress={() => handleAvailableRoutes()}>
                             <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: 10 }}>
                                 <View style={{ paddingTop: 30, paddingBottom: 30}}>
                                     <Text style={styles.buttonPlaceLeftLabel}>
@@ -51,7 +51,7 @@ export default function RoutesReservation({back}) {
                                     </Text>
                                 </View>
                             </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { Button } from 'react-native-paper';
-import {TextInput, StyleSheet, Pressable, Text, View, Alert, Image} from "react-native";
+import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Alert, Image} from "react-native";
 
 export default function ConfirmReservation({back, data}) {
     const [search, onSearch] = useState("");
@@ -14,81 +13,83 @@ export default function ConfirmReservation({back, data}) {
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
-                    <Pressable style={styles.titleStyle}>
-                        <Text style={styles.titleLabel}>
-                            Confirm Reservation
-                        </Text>
-                    </Pressable>
+                    <Text style={styles.titleStyle}>
+                        Confirm Reservation
+                    </Text>
                 </View>
-                {data.map((item) => (
-                    <View style={styles.transparent}>
-                        <Pressable style={styles.buttonStyle} onPress={() => Alert.alert('Discount')}>
-                            <Text style={styles.buttonDateLabel}>
-                                December 6, 2021
-                            </Text>
-                            <View style={{ display: "flex", flexDirection: "row" }}>
-                                <View>
-                                    <Text style={styles.buttonLabel}>
-                                        From
-                                    </Text>
-                                    <Text style={styles.buttonPlaceLabel}>
-                                        CDO
-                                    </Text>
-                                    <Text style={styles.buttonLabel}>
-                                        01:00 PM
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Image source={require('../../assets/images/Bus.png')} style={styles.logo}/>
-                                </View>
-                                <View>
-                                    <Text style={styles.buttonLabel}>
-                                        To
-                                    </Text>
-                                    <Text style={styles.buttonPlaceLabel}>
-                                        Iligan
-                                    </Text>
-                                    <Text style={styles.buttonLabel}>
-                                        03:00 PM
-                                    </Text>
-                                </View>
-                            </View>
-                        </Pressable>
-                        <Pressable style={styles.otherInformation}>
-                            <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", paddingLeft: 20, paddingRight: 20 }}>
-                                <View>
-                                    <Text style={styles.buttonLabel}>
-                                        Passenger
-                                    </Text>
-                                    <Text style={styles.buttonOtherLabel}>
-                                        Sakay Queue
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.buttonLabel}>
-                                        Bus No.
-                                    </Text>
-                                    <Text style={styles.buttonOtherLabel}>
-                                        BUS - A01
-                                    </Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.buttonLabel}>
-                                        Seat No.
-                                    </Text>
-                                    <Text style={styles.buttonOtherLabel}>
-                                        {item}A
-                                    </Text>
+                <View style={{ height: 500, display: "flex", justifyContent: "center" }}>
+                <ScrollView >
+                    {data.map((item) => (
+                        <View style={styles.transparent}>
+                            <View style={styles.buttonStyle}>
+                                <Text style={styles.buttonDateLabel}>
+                                    December 6, 2021
+                                </Text>
+                                <View style={{ display: "flex", flexDirection: "row" }}>
+                                    <View>
+                                        <Text style={styles.buttonLabel}>
+                                            From
+                                        </Text>
+                                        <Text style={styles.buttonPlaceLabel}>
+                                            CDO
+                                        </Text>
+                                        <Text style={styles.buttonLabel}>
+                                            01:00 PM
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Image source={require('../../assets/images/Bus.png')} style={styles.logo}/>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.buttonLabel}>
+                                            To
+                                        </Text>
+                                        <Text style={styles.buttonPlaceLabel}>
+                                            Iligan
+                                        </Text>
+                                        <Text style={styles.buttonLabel}>
+                                            03:00 PM
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
-                        </Pressable>
-                    </View>
-                ))}
-                <Pressable style={styles.ticketButtonStyle} onPress={() => Alert.alert("Reservation Confirmed!")}>
+                            <View style={styles.otherInformation}>
+                                <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", paddingLeft: 20, paddingRight: 20 }}>
+                                    <View>
+                                        <Text style={styles.buttonLabel}>
+                                            Passenger
+                                        </Text>
+                                        <Text style={styles.buttonOtherLabel}>
+                                            Sakay Queue
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.buttonLabel}>
+                                            Bus No.
+                                        </Text>
+                                        <Text style={styles.buttonOtherLabel}>
+                                            BUS - A01
+                                        </Text>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.buttonLabel}>
+                                            Seat No.
+                                        </Text>
+                                        <Text style={styles.buttonOtherLabel}>
+                                            {item}A
+                                        </Text>
+                                    </View>
+                                </View>
+                            </View>
+                        </View>
+                    ))}
+                <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => Alert.alert("Reservation Confirmed!")}>
                     <Text style={styles.confirmButtonLabel}>
                         Continue
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
+                </ScrollView>
+                </View>
             </View>
         </View>
     );
@@ -99,10 +100,15 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     ticketButtonStyle: {
+        padding: 8,
+        marginLeft: 20,
+        fontSize: 25,
         width: "90%",
+        color: "white",
         display: "flex",
         marginBottom: 15,
         borderRadius: 19,
+        fontWeight: "700",
         alignItems: "center",
         backgroundColor: "#F9AD10",
     },
@@ -127,12 +133,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     titleStyle: {
-        width: "100%",
-        display: "flex",
+        padding: 25,
+        fontSize: 25,
         marginTop: 10,
-        marginBottom: -30,
+        width: "100%",
+        color: "black",
+        display: "flex",
         borderRadius: 19,
-        alignItems: "center",
+        marginBottom: -30,
+        textAlign: "center",
+    },
+    titleLabel: {
+        padding: 25,
+        fontSize: 25,
+        color: "black",
     },
     buttonStyle: {
         width: "100%",
@@ -194,11 +208,6 @@ const styles = StyleSheet.create({
         color: "black",
         fontWeight: "700"
     },
-    titleLabel: {
-        padding: 25,
-        fontSize: 25,
-        color: "black",
-    },
     searchArea: {
         display: "flex",
         width: "100%",
@@ -243,7 +252,6 @@ const styles = StyleSheet.create({
     backButton: {
         color: "black",
         backgroundColor: "#F3F1F1",
-        paddingTop: 50,
         paddingBottom: 30,
         paddingLeft: 10,
     },
