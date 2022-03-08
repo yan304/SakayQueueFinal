@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from "react";
 import FareDiscounts from './FareDiscounts'
 import MyTicket from './MyTicket'
+import { createFunc, updateUserFunc, fetchFunc } from '../../src/config';
 import MapView from 'react-native-maps';
 import RoutesReservation from './RoutesReservation'
 import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert, Dimensions   } from "react-native";
@@ -30,6 +30,21 @@ export default function Dashboard({}) {
         setMainState(true);
         setRoutesReservationState(true);
     }
+
+    useEffect(() => {
+        // fetchFunc("busTwoData");
+        // createFunc({
+        //     email: "admin@admin.com",
+        //     password: "admin",
+        //     role: "Admin",
+        // },
+        // "users");
+        // updateUserFunc({
+        //     email: "admin@admin.com",
+        //     password: "admin",
+        //     role: "Admin",
+        // }, "Admin")
+    }, [])
     return (
         mainState ?
             myTicketState ?
