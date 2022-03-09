@@ -1,11 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
+import { fetchFunc } from '../../src/config';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View} from "react-native";
 
 export default function SeatReservation({back, data, backData}) {
     const [search, onSearch] = useState("");
     const [occupied, setOccupied] = useState([]);
+    const [busOneData, setBusOneData] = useState([]);
+
+    useEffect(() => {
+        setOccupied([]);
+        fetchFunc(setBusOneData, data == "A01" ? "busOneData" : "busTwoData");
+    }, [])
 
     const handleSeat = (seat) => {
         if (occupied.includes(seat)) {
@@ -23,6 +30,14 @@ export default function SeatReservation({back, data, backData}) {
             setOccupied(count);
         }
     };
+
+    useEffect(() => {
+        if (busOneData?.seatBooked) {
+            if (busOneData.seatBooked.length > 0) {
+                setOccupied(busOneData.seatBooked);
+            }
+        }
+    }, [busOneData])
 
     return (
         <View>

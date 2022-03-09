@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
+import { updateBusFunc } from '../../src/config';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Alert, Image} from "react-native";
 
-export default function ConfirmReservation({back, data}) {
-    const [search, onSearch] = useState("");
+export default function ConfirmReservation({back, data, busName}) {
+    const [search, onSearch] = useState("")
+
+    useEffect(() => {
+        updateBusFunc({
+            name: busName,
+            seatBooked: data,
+        }, busName == "A01" ? "busOneData" : "busTwoData" )
+    }, [])
+
     return (
         <View>
             <View style={styles.backButton}>

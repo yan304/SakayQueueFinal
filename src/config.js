@@ -26,16 +26,23 @@ export const createFunc = async (data, table) => {
 export const updateUserFunc = async (data, role) => {
     const userRef = doc(firestoreDatabase, "users", role);
 
-    await updateDoc(userRef, {data});
+    await updateDoc(userRef, data);
 }
 
-export const fetchFunc = async (busNumber) => {
+export const updateBusFunc = async (data, name) => {
+    const busRef = doc(firestoreDatabase, "bus", name);
+
+    await updateDoc(busRef, data);
+}
+
+export const fetchFunc = async (setBusLocation, busNumber) => {
     const dataRef = query(collection(firestoreDatabase, "bus"));
 
     const querySnapshot = await getDocs(dataRef);
     querySnapshot.forEach((doc) => {
         if (doc.id === busNumber) {
-            console.log(doc.id, " => ", doc.data());
+            setBusLocation(doc.data());
         }
+
     });
 }

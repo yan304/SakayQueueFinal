@@ -30,7 +30,7 @@ export default function AvailableRoutes({back}) {
     return (
         mainState ?
             confirmReservationState ?
-                <ConfirmReservation data={seatData} back={() => handleBack()}/>
+                <ConfirmReservation data={seatData} back={() => handleBack()} busName={bus}/>
             :
                 <SeatReservation back={() => handleBack()} data={bus} backData={(e) => handleConfirm(e)}/>
         :

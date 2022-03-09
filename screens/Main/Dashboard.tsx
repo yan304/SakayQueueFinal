@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import FareDiscounts from './FareDiscounts'
 import MyTicket from './MyTicket'
+import GetLocation from 'react-native-get-location'
 import { createFunc, updateUserFunc, fetchFunc } from '../../src/config';
 import MapView from 'react-native-maps';
-import RoutesReservation from './RoutesReservation'
+import { Marker } from 'react-native-maps';
+import RoutesReservation from './RoutesReservation';
 import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert, Dimensions   } from "react-native";
 
 export default function Dashboard({}) {
@@ -31,20 +33,57 @@ export default function Dashboard({}) {
         setRoutesReservationState(true);
     }
 
+    const [myLocation, setMyLocation] = useState({
+        latitude: 37.78825,
+        longitude: -122.4324,
+    });
+    const [busOneLocation, setBusOneLocation] = useState(myLocation);
+    const [busTwoLocation, setBusTwoLocation] = useState(myLocation);
+
+    // useEffect(() => {
+        GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+            .then(location => {
+                console.log(location, "Here");
+                // setMyLocation({
+                //     latitude: location.latitude,
+                //     longitude: location.longitude,
+                // });
+            })
+            .catch(error => {
+                const { code, message } = error;
+                console.warn(code, message);
+            })
+    // }, [])
+    console.log(myLocation);
+
+    const Countdown = () => {
+        const [timeLeft, setTimeLeft] = useState(5);
+            useEffect(() => {
+                const intervalId = setInterval(() => {
+                    setTimeLeft((t) => t - 1);
+                }, 1000);
+                return () => clearInterval(intervalId);
+            }, []);
+
+        if (timeLeft === 0) {
+            fetchFunc(setBusOneLocation, "busOneLocation");
+            fetchFunc(setBusTwoLocation, "busTwoLocation");
+        }
+        return true;
+    };
+
     useEffect(() => {
-        // fetchFunc("busTwoData");
         // createFunc({
         //     email: "admin@admin.com",
         //     password: "admin",
         //     role: "Admin",
         // },
         // "users");
-        // updateUserFunc({
-        //     email: "admin@admin.com",
-        //     password: "admin",
-        //     role: "Admin",
-        // }, "Admin")
     }, [])
+
     return (
         mainState ?
             myTicketState ?
@@ -56,6 +95,7 @@ export default function Dashboard({}) {
                     <FareDiscounts back={ () => handleBack()}/>
             :
         <View style={styles.container}>
+            <Countdown />
             <ImageBackground source={require('../../assets/images/Login.png')} resizeMode="cover" style={styles.image}
                              blurRadius={1}>
                  <View style={styles.mapContainer}>
@@ -63,12 +103,31 @@ export default function Dashboard({}) {
                          <MapView
                              style={styles.map}
                              initialRegion={{
-                                 latitude: 37.78825,
-                                 longitude: -122.4324,
-                                 latitudeDelta: 0.0922,
+                                 latitude: myLocation.latitude,
+                                 longitude: myLocation.longitude,
+                                 latitudeDelta: 0.1,
                                  longitudeDelta: 0.0421,
                              }}
-                         />
+                         >
+                             <Marker
+                                 key={1}
+                                 coordinate={myLocation}
+                                 title={"Location"}
+                                 description={"Me"}
+                             />
+                             <Marker
+                                 key={2}
+                                 coordinate={busOneLocation}
+                                 title={"Bus Location"}
+                                 description={"Bus 1"}
+                             />
+                             <Marker
+                                 key={3}
+                                 coordinate={busTwoLocation}
+                                 title={"Bus Location"}
+                                 description={"Bus 2"}
+                             />
+                         </MapView>
                      </View>
                  </View>
                 <View style={styles.mainTransparent}>
