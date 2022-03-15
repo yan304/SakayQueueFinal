@@ -20,6 +20,7 @@ export default function App() {
   const [loginState, setLoginState] = useState(false);
   const [registerState, setRegisterState] = useState(false);
   const [forgotState, setForgotState] = useState(false);
+  const [currentRole, setCurrentRole] = useState("customer");
 
   const handleClose = () => {
     setLoginState(false);
@@ -44,15 +45,26 @@ export default function App() {
     setForgotState(true);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    setCurrentRole(e);
+    // setLoginState(false);
+  }
+
+  const handleCurrentUser = (e) => {
+    handleClose();
+    setCurrentRole(e);
+    setMainState(false);
     setLoginState(false);
   }
     return (
       <SafeAreaView>
-        {(!loginState && mainState) && <Login login={() => handleLogin()} register={() => handleRegister()}/> }
-        {loginState && <InputLogin login={() => handleSubmit()} register={() => handleRegister()} forgot={() => handleForgot()}/>}
+        {(!loginState && mainState) && <Login dashboard={(e) => handleCurrentUser(e)} login={() => handleLogin()} register={() => handleRegister()}/> }
+        {loginState && <InputLogin login={(e) => handleSubmit(e)} register={() => handleRegister()} forgot={() => handleForgot()}/>}
         {registerState && <Register back={() => handleLogin()}/>}
         {forgotState && <ForgotPassword back={() => handleLogin()}/>}
+        {currentRole === "admin" && console.log("Hello Admin")}
+        {currentRole === "conductor" && console.log("Hello Conductor")}
+        {currentRole === "customer" && console.log("Hello Customer")}
         {!mainState && !loginState && !registerState && !forgotState ? <Dashboard /> : null}
         <StatusBar />
       </SafeAreaView>

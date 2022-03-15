@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, addDoc, collection, updateDoc, doc, query, where, getDocs } from "firebase/firestore"
 
 const config = {
@@ -13,6 +14,7 @@ const config = {
 };
 
 const firebaseApp = initializeApp(config);
+const auth = getAuth();
 export const firestoreDatabase = getFirestore(firebaseApp);
 
 export const createFunc = async (data, table) => {
@@ -45,4 +47,38 @@ export const fetchFunc = async (setBusLocation, busNumber) => {
         }
 
     });
+}
+
+export const registerUser = (data, setRegister) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            setRegister({
+                message: "Successfully Registered User",
+                color: "lightgreen"
+            });
+        })
+        .catch((error) => {
+            setRegister({
+                message: error.code,
+                color: "red"
+            });
+        });
+}
+
+export const loginUser = (data, setLogin) => {
+    signInWithEmailAndPassword(auth, data.email, data.password)
+        .then((userCredential) => {
+            var user = userCredential.user;
+            setLogin({
+                message: "Successfully Authenticated",
+                color: "lightgreen"
+            });
+        })
+        .catch((error) => {
+            setLogin({
+                message: error.code,
+                color: "red"
+            });
+        });
 }

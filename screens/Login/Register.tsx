@@ -1,12 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
+import { registerUser } from '../../src/config';
 import React, { useState } from "react";
 import { TextInput, StyleSheet, Pressable, Text, View, Alert  } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Register({back}) {
+    const [role, setRole] = useState("");
     const [email, onEmailChange] = useState("");
     const [username, onUsernameChange] = useState("");
     const [password, onPasswordChange] = useState("");;
     const [confirmPassword, onConfirmPasswordChange] = useState("");
+
+    const [registerState, setRegisterState] = useState();
+
+    const storeData = async () => {
+        try {
+            const jsonValue = JSON.stringify({
+                username: email,
+                password: password,
+                role: role
+            })
+            await AsyncStorage.setItem('userCredentials', jsonValue)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleSubmit = () => {
+        storeData();
+        registerUser({
+            email: username,
+            password: password,
+        }, setRegisterState);
+    }
+
     return (
         <View>
             <View style={styles.backButton}>
@@ -128,7 +154,7 @@ const styles = StyleSheet.create({
     },
     backButton: {
         backgroundColor: "#F3F1F1",
-        paddingTop: 50,
+        paddingTop: 5,
         paddingBottom: 30
     }
 });

@@ -1,7 +1,30 @@
-import React, { useState } from 'react';
-import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert   } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Login({login, register}) {
+export default function Login({dashboard, login, register}) {
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('userCredentials')
+            jsonValue != null ? setCurrentUser(JSON.parse(jsonValue)) : null;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    useEffect(() => {
+        if (currentUser) {
+            // dashboard(currentUser.role);
+            console.log(currentUser, "Login Successfully");
+        }
+    }, [currentUser])
+
+    useEffect(() => {
+        getData();
+    }, [])
+
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../../assets/images/Login.png')} resizeMode="cover" style={styles.image}>

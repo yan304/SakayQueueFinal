@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { StatusBar } from 'expo-status-bar';
 import MapView from 'react-native-maps';
 import SeatReservation from './SeatReservation'
 import ConfirmReservation from './ConfirmReservation'

@@ -1,10 +1,62 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from "react";
-import { TextInput, StyleSheet, Pressable, Text, View, Alert   } from "react-native";
+import React, { useState, useEffect } from "react";
+import { loginUser } from '../../src/config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TextInput, StyleSheet, Pressable, Text, View, Alert } from "react-native";
 
 export default function InputLogin({login, register, forgot}) {
     const [username, onUsernameChange] = useState("");
     const [password, onPasswordChange] = useState("");
+    const [role, setRole] = useState("");
+    const [loginState, setLoginState] = useState();
+
+    const storeData = async () => {
+        try {
+            const jsonValue = JSON.stringify({
+                username: username,
+                password: password,
+                role: role
+            })
+            await AsyncStorage.setItem('userCredentials', jsonValue)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const handleSubmit = () => {
+        if (username !== "" && password !== "") {
+            loginUser({
+                email: username,
+                password: password,
+            }, setLoginState);
+        }
+        else {
+            setLoginState({
+                message: "Invalid Credentials",
+                color: "red"
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (loginState?.message === "Successfully Authenticated") {
+            var roles = "";
+            if (username.includes('@admin.com')) {
+                roles = "admin";
+                setRole("admin");
+            }
+            if (username.includes('@conductor.com')) {
+                roles = "conductor";
+                setRole("conductor");
+            }
+            if (username.includes('@customer.com')) {
+                roles = "customer";
+                setRole("customer");
+            }
+            storeData();
+            login(roles);
+        }
+    }, [loginState])
+
     return (
         <View style={styles.mainTransparent}>
             <View style={styles.transparent}>
@@ -26,8 +78,11 @@ export default function InputLogin({login, register, forgot}) {
                         value={password}
                         placeholder="   Password"
                     />
+                    <Text style={{ color: loginState?.color, marginLeft: 20}}>
+                        {loginState && loginState.message}
+                    </Text>
                 </View>
-                <Text style={styles.buttonLabel} onPress={login}>
+                <Text style={styles.buttonLabel} onPress={() => handleSubmit()}>
                     Log In
                 </Text>
                 <View style={styles.forgotStyles}>
