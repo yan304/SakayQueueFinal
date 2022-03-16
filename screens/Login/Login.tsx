@@ -16,7 +16,7 @@ export default function Login({dashboard, login, register}) {
 
     useEffect(() => {
         if (currentUser) {
-            // dashboard(currentUser.role);
+            dashboard(currentUser.role);
             console.log(currentUser, "Login Successfully");
         }
     }, [currentUser])

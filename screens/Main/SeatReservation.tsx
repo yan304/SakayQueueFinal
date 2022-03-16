@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
 import { fetchFunc } from '../../src/config';
