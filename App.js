@@ -14,7 +14,8 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
 
@@ -49,7 +50,7 @@ export default function App() {
 
   const handleSubmit = (e) => {
     setCurrentRole(e);
-    // setLoginState(false);
+    setLoginState(false);
   }
 
   const handleCurrentUser = (e) => {
@@ -58,15 +59,20 @@ export default function App() {
     setMainState(false);
     setLoginState(false);
   }
+
+  const handleLogout = () => {
+    setCurrentRole('');
+    setMainState(true);
+  }
     return (
       <SafeAreaView>
         {(!loginState && mainState) && <Login dashboard={(e) => handleCurrentUser(e)} login={() => handleLogin()} register={() => handleRegister()}/> }
         {loginState && <InputLogin login={(e) => handleSubmit(e)} register={() => handleRegister()} forgot={() => handleForgot()}/>}
         {registerState && <Register back={() => handleLogin()}/>}
         {forgotState && <ForgotPassword back={() => handleLogin()}/>}
-        {!mainState && !loginState && !registerState && !forgotState && currentRole === "admin" ? <Conductor /> : null}
-        {!mainState && !loginState && !registerState && !forgotState && currentRole === "conductor" ? <Dashboard /> : null}
-        {!mainState && !loginState && !registerState && !forgotState && currentRole === "customer" ? <Dashboard /> : null}
+        {!mainState && !loginState && !registerState && !forgotState && currentRole === "admin" ? <Conductor back={() => handleLogout()} /> : null}
+        {!mainState && !loginState && !registerState && !forgotState && currentRole === "conductor" ? <Conductor back={() => handleLogout()} /> : null}
+        {!mainState && !loginState && !registerState && !forgotState && currentRole === "customer" ? <Dashboard back={() => handleLogout()} /> : null}
         <StatusBar />
       </SafeAreaView>
     );

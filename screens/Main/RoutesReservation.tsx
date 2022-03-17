@@ -15,9 +15,12 @@ export default function RoutesReservation({back}) {
         availableRoutesState ? <AvailableRoutes back={() => setAvailableRoutesState(false)}/> :
             <View>
                 <View style={styles.backButton}>
-                    <Button icon='left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
-                        Available Routes
-                    </Button>
+                    <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
+                        <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                        <Text style={styles.backFont}>
+                            Available Routes
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.mainTransparent}>
                     <View style={styles.transparent}>
@@ -61,6 +64,17 @@ export default function RoutesReservation({back}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    backlogo: {
+        width: 10,
+        height: 15,
+        marginRight: 10,
+        marginTop: 2,
+        marginLeft: 5
+    },
+    backFont: {
+        fontSize: 15,
+        marginTop: -1
     },
     buttonDateLabel: {
         padding: 2,

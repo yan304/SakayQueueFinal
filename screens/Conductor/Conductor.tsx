@@ -4,10 +4,12 @@ import { createFunc, updateUserFunc, fetchFunc } from '../../src/config';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import SeatManagement from "./SeatManagement";
-import { ImageBackground, Image, StyleSheet, Pressable, Text, View, Alert, Dimensions   } from "react-native";
+import MenuScreen from "../MenuScreen";
+import { ImageBackground, Image, StyleSheet, TouchableOpacity, Text, View, Alert, Dimensions   } from "react-native";
 
-export default function Conductor({}) {
+export default function Conductor({back}) {
     const [seatManagementState, setSeatManagementState] = useState(false);
+    const [menuState, setMenuState] = useState(false);
 
     const [myLocation, setMyLocation] = useState({
         latitude: 37.78825,
@@ -53,7 +55,12 @@ export default function Conductor({}) {
         setSeatManagementState(true);
     }
 
+    const handleMenu = () => {
+        setMenuState(false);
+    }
+
     return (
+        menuState ? <MenuScreen back={() => handleMenu()} logout={back}/> :
         seatManagementState ?
             <SeatManagement back={() => setSeatManagementState(false)} data={"A01"} backData={(e,k) => console.log(e,k)}/>
             :
@@ -63,6 +70,9 @@ export default function Conductor({}) {
                                  blurRadius={1}>
                     <View style={styles.mapContainer}>
                         <View style={styles.mapContainer}>
+                            <TouchableOpacity onPress={() => setMenuState(true)} style={styles.menuContainer}>
+                                <Image source={require('../../assets/icons/nav-menu.png')} style={styles.menu} />
+                            </TouchableOpacity>
                             <MapView
                                 style={styles.map}
                                 initialRegion={{
@@ -121,6 +131,16 @@ export default function Conductor({}) {
 const styles = StyleSheet.create({
     container: {
         height: '100%'
+    },
+    menu: {
+      width: 40,
+      height: 40,
+    },
+    menuContainer: {
+        position: 'absolute',
+        left: 15,
+        top: 15,
+        zIndex: 1,
     },
     image: {
         height: '100%',

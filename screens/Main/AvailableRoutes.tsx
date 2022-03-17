@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapView from 'react-native-maps';
 import SeatReservation from './SeatReservation'
 import ConfirmReservation from './ConfirmReservation'
-import { ImageBackground, Image, StyleSheet, Text, View, Dimensions   } from "react-native";
+import {ImageBackground, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity} from "react-native";
 
 export default function AvailableRoutes({back}) {
     const [bus, setBus] = useState('');
@@ -36,6 +36,12 @@ export default function AvailableRoutes({back}) {
          <View style={styles.image}>
              <View style={styles.mapContainer}>
                  <View style={styles.mapContainer}>
+                     <TouchableOpacity onPress={back} style={styles.menuContainer}>
+                         <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                         <Text style={{ fontSize: 20, fontWeight: "700"}}>
+                             Select Ongoing bus
+                         </Text>
+                     </TouchableOpacity>
                      <MapView
                          style={styles.map}
                          initialRegion={{
@@ -78,6 +84,25 @@ export default function AvailableRoutes({back}) {
 const styles = StyleSheet.create({
     container: {
         height: '100%'
+    },
+    menu: {
+        width: 40,
+        height: 40,
+    },
+    backlogo: {
+        width: 10,
+        height: 15,
+        marginRight: 10,
+        marginTop: 6,
+        marginLeft: 10
+    },
+    menuContainer: {
+        display: "flex",
+        flexDirection: "row",
+        position: 'absolute',
+        left: 15,
+        top: 15,
+        zIndex: 1,
     },
     image: {
         height: '100%',

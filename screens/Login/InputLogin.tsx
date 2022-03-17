@@ -9,12 +9,12 @@ export default function InputLogin({login, register, forgot}) {
     const [role, setRole] = useState("");
     const [loginState, setLoginState] = useState();
 
-    const storeData = async () => {
+    const storeData = async (roles) => {
         try {
             const jsonValue = JSON.stringify({
                 username: username,
                 password: password,
-                role: role
+                role: roles
             })
             await AsyncStorage.setItem('userCredentials', jsonValue)
         } catch (e) {
@@ -38,6 +38,7 @@ export default function InputLogin({login, register, forgot}) {
     }
 
     useEffect(() => {
+        // @ts-ignore
         if (loginState?.message === "Successfully Authenticated") {
             var roles = "";
             if (username.includes('@admin.com')) {
@@ -52,7 +53,7 @@ export default function InputLogin({login, register, forgot}) {
                 roles = "customer";
                 setRole("customer");
             }
-            storeData();
+            storeData(roles);
             login(roles);
         }
     }, [loginState])

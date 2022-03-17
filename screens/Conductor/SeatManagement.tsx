@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
 import { fetchFunc } from '../../src/config';
 import { Icon } from 'react-native-elements';
-import {TouchableOpacity, StyleSheet, ScrollView, Text, View} from "react-native";
+import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Image} from "react-native";
 
 export default function SeatManagement({back, data, backData}) {
     const [occupied, setOccupied] = useState([]);
@@ -62,9 +62,12 @@ export default function SeatManagement({back, data, backData}) {
 
     return <View>
             <View style={styles.backButton}>
-                <Button icon='chevron-left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
-                    Seat Reservation
-                </Button>
+                <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
+                    <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                    <Text style={styles.backFont}>
+                        Seat Reservation
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
@@ -104,14 +107,18 @@ export default function SeatManagement({back, data, backData}) {
                             {[items,items+5,items+10,items+15].map(item => (
                                 <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between" }}>
                                     {occupied.includes(item) ?
-                                        <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                            <Icon name='check-circle-outline' onPress={() => handleReserve(item)}/>
-                                        </View>
+                                        <TouchableOpacity key={item} onPress={() => handleReserve(item)}>
+                                            <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                            </View>
+                                        </TouchableOpacity>
                                         :
                                             reserved.includes(item) ?
-                                                <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                                    <Icon name='check-circle-outline' onPress={() => handleSeat(item)}/>
-                                                </View>
+                                                <TouchableOpacity key={item} onPress={() => handleSeat(item)}>
+                                                    <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                        <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                    </View>
+                                                </TouchableOpacity>
                                             :
                                                 <TouchableOpacity key={item} onPress={() => handleSeat(item)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -120,14 +127,18 @@ export default function SeatManagement({back, data, backData}) {
                                                 </TouchableOpacity>
                                     }
                                     {occupied.includes(item + 1) ?
-                                        <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
-                                            <Icon name='check-circle-outline' onPress={() => handleReserve(item + 1)}/>
-                                        </View>
+                                        <TouchableOpacity key={item + 1} onPress={() => handleReserve(item + 1)}>
+                                            <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                            </View>
+                                        </TouchableOpacity>
                                         :
                                             reserved.includes(item + 1) ?
-                                                <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                                    <Icon name='check-circle-outline' onPress={() => handleSeat(item + 1)}/>
-                                                </View>
+                                                <TouchableOpacity key={item + 1} onPress={() => handleSeat(item + 1)}>
+                                                    <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                        <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                    </View>
+                                                </TouchableOpacity>
                                             :
                                                 <TouchableOpacity key={item+1} onPress={() => handleSeat(item + 1)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -136,14 +147,18 @@ export default function SeatManagement({back, data, backData}) {
                                                 </TouchableOpacity>
                                     }
                                     {occupied.includes(item + 2) ?
-                                        <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
-                                            <Icon name='check-circle-outline' onPress={() => handleReserve(item + 2)}/>
-                                        </View>
+                                        <TouchableOpacity key={item + 2} onPress={() => handleReserve(item + 2)}>
+                                            <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                            </View>
+                                        </TouchableOpacity>
                                         :
                                             reserved.includes(item + 2) ?
-                                                <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                                    <Icon name='check-circle-outline' onPress={() => handleSeat(item + 2)}/>
-                                                </View>
+                                                <TouchableOpacity key={item + 2} onPress={() => handleSeat(item + 2)}>
+                                                    <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                        <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                    </View>
+                                                </TouchableOpacity>
                                             :
                                                 <TouchableOpacity key={item+2} onPress={() => handleSeat(item + 2)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -153,14 +168,18 @@ export default function SeatManagement({back, data, backData}) {
                                     }
                                     <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between", marginLeft: 50 }}>
                                         {occupied.includes(item + 3) ?
-                                            <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
-                                                <Icon name='check-circle-outline' onPress={() => handleReserve(item + 3)}/>
-                                            </View>
+                                            <TouchableOpacity key={item + 3} onPress={() => handleReserve(item + 3)}>
+                                                <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                    <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                </View>
+                                            </TouchableOpacity>
                                             :
                                                 reserved.includes(item + 3) ?
-                                                    <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                                        <Icon name='check-circle-outline' onPress={() => handleSeat(item + 3)}/>
-                                                    </View>
+                                                    <TouchableOpacity key={item + 3} onPress={() => handleSeat(item + 3)}>
+                                                        <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                            <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                        </View>
+                                                    </TouchableOpacity>
                                                 :
                                                     <TouchableOpacity key={item+3} onPress={() => handleSeat(item + 3)}>
                                                         <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -169,14 +188,18 @@ export default function SeatManagement({back, data, backData}) {
                                                     </TouchableOpacity>
                                         }
                                         {occupied.includes(item + 4) ?
-                                            <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
-                                                <Icon name='check-circle-outline' onPress={() => handleReserve(item + 4)}/>
-                                            </View>
+                                            <TouchableOpacity key={item + 4} onPress={() => handleReserve(item + 4)}>
+                                                <View style={{ backgroundColor: "#A4A3A3", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                    <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                </View>
+                                            </TouchableOpacity>
                                             :
                                                 reserved.includes(item + 4) ?
-                                                    <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 2}}>
-                                                        <Icon name='check-circle-outline' onPress={() => handleSeat(item + 4)}/>
-                                                    </View>
+                                                    <TouchableOpacity key={item + 4} onPress={() => handleSeat(item + 4)}>
+                                                        <View style={{ backgroundColor: "#F9AD10", height: 30, width: 35, borderRadius: 5, margin: 3}}>
+                                                            <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
+                                                        </View>
+                                                    </TouchableOpacity>
                                                 :
                                                     <TouchableOpacity key={item+4} onPress={() => handleSeat(item + 4)}>
                                                         <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
@@ -219,7 +242,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 19,
         alignItems: "center",
-        backgroundColor: "#F9AD10",
+        backgroundColor: "#0374F9",
     },
     ticketDisabledButtonStyle: {
         width: "90%",
@@ -247,10 +270,22 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#FFFFFF"
     },
+    backlogo: {
+        width: 10,
+        height: 15,
+        marginRight: 10,
+        marginTop: 2,
+        marginLeft: 5
+    },
+    backFont: {
+        fontSize: 15,
+        marginTop: -1
+    },
     logo: {
-        width: 160,
-        height: 20,
-        marginTop: 30,
+        width: 25,
+        height: 25,
+        marginLeft: 5,
+        marginTop: 3
     },
     mainTransparent: {
         display: "flex",
