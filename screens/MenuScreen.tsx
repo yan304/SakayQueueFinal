@@ -13,6 +13,7 @@ export default function MenuScreen({back, logout}) {
             return false;
         };
     }
+    console.log("Hello World");
     return (
         <View style={{ height: "100%" }}>
             <TouchableOpacity onPress={back} style={styles.menuContainer}>
