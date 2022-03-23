@@ -52,24 +52,22 @@ export default function Dashboard({back}) {
     const [busOneLocation, setBusOneLocation] = useState(myLocation);
     const [busTwoLocation, setBusTwoLocation] = useState(myLocation);
 
-    // useEffect(() => {
+    useEffect(() => {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
         })
             .then(location => {
-                console.log(location, "Here");
-                // setMyLocation({
-                //     latitude: location.latitude,
-                //     longitude: location.longitude,
-                // });
+                setMyLocation({
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                });
             })
             .catch(error => {
                 const { code, message } = error;
                 console.warn(code, message);
             })
-    // }, [])
-    console.log(myLocation);
+    }, [])
 
     const Countdown = () => {
         const [timeLeft, setTimeLeft] = useState(5);
@@ -122,7 +120,7 @@ export default function Dashboard({back}) {
                          </TouchableOpacity>
                          <MapView
                              style={styles.map}
-                             initialRegion={{
+                             region={{
                                  latitude: myLocation.latitude,
                                  longitude: myLocation.longitude,
                                  latitudeDelta: 0.1,

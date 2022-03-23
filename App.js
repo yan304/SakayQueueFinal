@@ -4,7 +4,7 @@ import Register from './screens/Login/Register'
 import ForgotPassword from './screens/Login/ForgotPassword'
 import Dashboard from './screens/Main/Dashboard'
 import Conductor from './screens/Conductor/Conductor'
-// import Dashboard from './screens/Main/Dashboard'
+import Admin from './screens/Admin/Admin'
 import {
   SafeAreaView,
   ScrollView,
@@ -70,7 +70,7 @@ export default function App() {
         {loginState && <InputLogin login={(e) => handleSubmit(e)} register={() => handleRegister()} forgot={() => handleForgot()}/>}
         {registerState && <Register back={() => handleLogin()}/>}
         {forgotState && <ForgotPassword back={() => handleLogin()}/>}
-        {!mainState && !loginState && !registerState && !forgotState && currentRole === "admin" ? <Conductor back={() => handleLogout()} /> : null}
+        {!mainState && !loginState && !registerState && !forgotState && currentRole === "admin" ? <Admin back={() => handleLogout()} /> : null}
         {!mainState && !loginState && !registerState && !forgotState && currentRole === "conductor" ? <Conductor back={() => handleLogout()} /> : null}
         {!mainState && !loginState && !registerState && !forgotState && currentRole === "customer" ? <Dashboard back={() => handleLogout()} /> : null}
         <StatusBar />

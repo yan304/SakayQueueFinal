@@ -3,18 +3,19 @@ import { Button } from 'react-native-paper';
 import { updateBusFunc } from '../../src/config';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Alert, Image} from "react-native";
 
-export default function ConfirmReservation({back, data, busName}) {
+export default function ConfirmReservation({back, data, busName, allBack}) {
     const [search, onSearch] = useState("")
 
-    useEffect(() => {
+    const confirmation = () => {
         updateBusFunc({
             name: busName,
-            seatBooked: data,
+            seatBooked: data[0],
         }, busName == "A01" ? "busOneData" : "busTwoData" )
-    }, [])
+        allBack();
+    }
 
     return (
-        <View>
+        <View style={{ height: "100%" }}>
             <View style={styles.backButton}>
                 <Button icon='arrow-left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
                     Confirm Reservation
@@ -26,9 +27,9 @@ export default function ConfirmReservation({back, data, busName}) {
                         Confirm Reservation
                     </Text>
                 </View>
-                <View style={{ height: 500, display: "flex", justifyContent: "center" }}>
+                <View style={{ height: "100%", display: "flex", justifyContent: "center" }}>
                 <ScrollView >
-                    {data.map((item) => (
+                    {data[1].map((item) => (
                         <View style={styles.transparent}>
                             <View style={styles.buttonStyle}>
                                 <Text style={styles.buttonDateLabel}>
@@ -92,14 +93,14 @@ export default function ConfirmReservation({back, data, busName}) {
                             </View>
                         </View>
                     ))}
-                <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => Alert.alert("Reservation Confirmed!")}>
-                    <Text style={styles.confirmButtonLabel}>
-                        Continue
-                    </Text>
-                </TouchableOpacity>
                 </ScrollView>
                 </View>
             </View>
+            <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => confirmation()}>
+                <Text style={styles.confirmButtonLabel}>
+                    Continue
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
     },
     ticketButtonStyle: {
         padding: 8,
+        bottom: 5,
         marginLeft: 20,
         fontSize: 25,
         width: "90%",
@@ -118,6 +120,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         borderRadius: 19,
         fontWeight: "700",
+        position: 'absolute',
         alignItems: "center",
         backgroundColor: "#F9AD10",
     },
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
         display: "flex",
         // marginTop: 300,
         marginTop: -20,
+        height: "70%",
         alignItems: "center",
     },
     titleStyle: {

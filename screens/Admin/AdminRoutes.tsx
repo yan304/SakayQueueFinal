@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import MapView, {Marker} from 'react-native-maps';
-import SeatReservation from './SeatReservation'
-import ConfirmReservation from './ConfirmReservation'
 import {ImageBackground, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity} from "react-native";
 import GetLocation from "react-native-get-location";
+import AdminReservation from "./AdminReservation";
+import AdminConfirmReservation from "./AdminConfirmReservation";
 
-export default function AvailableRoutes({back}) {
+export default function AdminRoutes({back}) {
     const [bus, setBus] = useState('');
     const [seatData, setSeatData] = useState();
     const [userSeatData, setUserSeatData] = useState();
@@ -55,62 +55,62 @@ export default function AvailableRoutes({back}) {
     return (
         mainState ?
             confirmReservationState ?
-                <ConfirmReservation data={[seatData, userSeatData]} back={() => handleBack()} busName={bus} allBack={back}/>
+                <AdminConfirmReservation data={[seatData, userSeatData]} back={() => handleBack()} busName={bus} allBack={back}/>
+                :
+                <AdminReservation back={() => handleBack()} data={bus} backData={(e,c) => handleConfirm(e,c)}/>
             :
-                <SeatReservation back={() => handleBack()} data={bus} backData={(e,c) => handleConfirm(e,c)}/>
-        :
-         <View style={styles.image}>
-             <View style={styles.mapContainer}>
-                 <View style={styles.mapContainer}>
-                     <TouchableOpacity onPress={back} style={styles.menuContainer}>
-                         <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
-                         <Text style={{ fontSize: 20, fontWeight: "700"}}>
-                             Select Ongoing bus
-                         </Text>
-                     </TouchableOpacity>
-                     <MapView
-                         style={styles.map}
-                         region={{
-                             latitude: myLocation.latitude,
-                             longitude: myLocation.longitude,
-                             latitudeDelta: 0.1,
-                             longitudeDelta: 0.0421,
-                         }}
-                     >
-                         <Marker
-                             key={1}
-                             coordinate={myLocation}
-                             title={"Location"}
-                             description={"Me"}
-                         />
-                     </MapView>
-                 </View>
-             </View>
-             <View style={styles.mainTransparent}>
-                <View style={styles.transparent}>
-                    <View>
-                        <Text style={styles.buttonPlaceLeftLabel}>
-                            ONGOING
+            <View style={styles.image}>
+                <View style={styles.mapContainer}>
+                    <View style={styles.mapContainer}>
+                        <TouchableOpacity onPress={back} style={styles.menuContainer}>
+                            <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                            <Text style={{ fontSize: 20, fontWeight: "700"}}>
+                                Select Ongoing bus
+                            </Text>
+                        </TouchableOpacity>
+                        <MapView
+                            style={styles.map}
+                            region={{
+                                latitude: myLocation.latitude,
+                                longitude: myLocation.longitude,
+                                latitudeDelta: 0.1,
+                                longitudeDelta: 0.0421,
+                            }}
+                        >
+                            <Marker
+                                key={1}
+                                coordinate={myLocation}
+                                title={"Location"}
+                                description={"Me"}
+                            />
+                        </MapView>
+                    </View>
+                </View>
+                <View style={styles.mainTransparent}>
+                    <View style={styles.transparent}>
+                        <View>
+                            <Text style={styles.buttonPlaceLeftLabel}>
+                                ONGOING
+                            </Text>
+                        </View>
+                        <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A01")}>
+                            BUS - A01
+                        </Text>
+                        <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A02")}>
+                            BUS - A02
+                        </Text>
+                        <Text style={styles.noteStyle}>
+                            <Text style={{ fontWeight: "bold" }}>
+                                NOTE:&nbsp;
+                            </Text>
+                            View the map to locate the
+                        </Text>
+                        <Text style={styles.noteStyle}>
+                            nearest ongoing bus near you
                         </Text>
                     </View>
-                    <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A01")}>
-                        BUS - A01
-                    </Text>
-                    <Text style={styles.ticketButtonStyle} onPress={() => handleMyTicket("A02")}>
-                        BUS - A02
-                    </Text>
-                    <Text style={styles.noteStyle}>
-                        <Text style={{ fontWeight: "bold" }}>
-                            NOTE:&nbsp;
-                        </Text>
-                        View the map to locate the
-                    </Text>
-                    <Text style={styles.noteStyle}>
-                        nearest ongoing bus near you
-                    </Text>
                 </View>
             </View>
-        </View>
     );
 }
 

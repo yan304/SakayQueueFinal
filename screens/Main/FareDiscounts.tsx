@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from "react";
 import { Button } from 'react-native-paper';
-import {TextInput, StyleSheet, Pressable, Text, View, Alert, Image} from "react-native";
+import {TextInput, StyleSheet, ScrollView, Text, View, Alert, Image} from "react-native";
 
 export default function FareDiscounts({back}) {
     const [search, onSearch] = useState("");
@@ -14,29 +14,104 @@ export default function FareDiscounts({back}) {
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
-                    <View style={styles.searchArea}>
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onSearch}
-                            value={search}
-                            placeholder="   Student"
-                        />
+                    <View style={styles.buttonStyle}>
+                        <Text style={styles.title}>
+                            Fair and Discounts {'\n'}
+                            (AIRCON)
+                        </Text>
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}>
+                                PLACE
+                            </Text>
+                            <Text style={styles.fontStyles}>
+                                REGULAR
+                            </Text>
+                            <Text style={styles.fontStyles}>
+                                SP/SC/PWD
+                            </Text>
+                        </View>
                     </View>
-                    <Text style={styles.buttonStyle}>
-                        Loading...
-                    </Text>
-                    <Text style={styles.buttonStyle}>
-                        Loading...
-                    </Text>
-                    <Text style={styles.buttonStyle}>
-                        Loading...
-                    </Text>
-                    <Text style={styles.buttonStyle}>
-                        Loading...
-                    </Text>
-                    <Text style={styles.buttonStyle}>
-                        Loading...
-                    </Text>
+                </View>
+            </View>
+            <View style={styles.mainTransparent}>
+                <View style={styles.transparent}>
+                    <ScrollView style={styles.buttonStyle}>
+                        <Text style={styles.fontStyles}>
+                            CAGAYAN
+                        </Text>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> OPOL </Text>
+                            <Text style={styles.fontStyles}> 30.00 </Text>
+                            <Text style={styles.fontStyles}> 20.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> EL SALVADOR </Text>
+                            <Text style={styles.fontStyles}> 60.00 </Text>
+                            <Text style={styles.fontStyles}> 40.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> ALUBIJID </Text>
+                            <Text style={styles.fontStyles}> 90.00 </Text>
+                            <Text style={styles.fontStyles}> 60.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> LAGUINDINGAN </Text>
+                            <Text style={styles.fontStyles}> 105.00 </Text>
+                            <Text style={styles.fontStyles}> 70.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> GITAGUM </Text>
+                            <Text style={styles.fontStyles}> 130.00 </Text>
+                            <Text style={styles.fontStyles}> 85.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> LIBERTAD </Text>
+                            <Text style={styles.fontStyles}> 170.00 </Text>
+                            <Text style={styles.fontStyles}> 110.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> INITAO </Text>
+                            <Text style={styles.fontStyles}> 200.00 </Text>
+                            <Text style={styles.fontStyles}> 130.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> NAAWAN </Text>
+                            <Text style={styles.fontStyles}> 240.00 </Text>
+                            <Text style={styles.fontStyles}> 155.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> MATICAO </Text>
+                            <Text style={styles.fontStyles}> 260.00 </Text>
+                            <Text style={styles.fontStyles}> 165.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> LUGAIT </Text>
+                            <Text style={styles.fontStyles}> 290.00 </Text>
+                            <Text style={styles.fontStyles}> 185.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> LIWALAN </Text>
+                            <Text style={styles.fontStyles}> 320.00 </Text>
+                            <Text style={styles.fontStyles}> 210.00 </Text>
+                        </View>
+                        <Image source={require('../../assets/images/dot-line.png')} style={styles.dotStyle} />
+                        <View style={styles.titleBar}>
+                            <Text style={styles.fontStylesPlace}> ILIGAN </Text>
+                            <Text style={styles.fontStyles}> 350.00 </Text>
+                            <Text style={styles.fontStyles}> 225.00 </Text>
+                        </View>
+                    </ScrollView>
                 </View>
             </View>
         </View>
@@ -46,6 +121,35 @@ export default function FareDiscounts({back}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    dotStyle: {
+       width: 330,
+       height: 2,
+       marginTop: 10,
+        marginBottom: -10
+    },
+    fontStylesPlace: {
+        width: "40%",
+        fontSize: 20,
+        fontWeight: "700",
+    },
+    fontStyles: {
+        fontSize: 20,
+        fontWeight: "700",
+    },
+    title: {
+        fontSize: 25,
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        textAlign: "center",
+        fontWeight: "700",
+    },
+    titleBar: {
+      marginTop: 20,
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between"
     },
     transparent: {
         width: "100%",

@@ -75,7 +75,7 @@ export default function Conductor({back}) {
                             </TouchableOpacity>
                             <MapView
                                 style={styles.map}
-                                initialRegion={{
+                                region={{
                                     latitude: myLocation.latitude,
                                     longitude: myLocation.longitude,
                                     latitudeDelta: 0.1,

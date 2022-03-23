@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper';
 import { fetchFunc } from '../../src/config';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Image} from "react-native";
 
-export default function SeatReservation({back, data, backData}) {
+export default function AdminReservation({back, data, backData}) {
     const [search, onSearch] = useState("");
     const [occupied, setOccupied] = useState([]);
     const [userSeat, setUserSeat] = useState([]);
@@ -57,7 +57,7 @@ export default function SeatReservation({back, data, backData}) {
     }, [busOneData])
 
     return (
-        <View style={{ height: "100%"}}>
+        <View style={{ height: "100%" }}>
             <View style={styles.backButton}>
                 <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
                     <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
@@ -76,23 +76,23 @@ export default function SeatReservation({back, data, backData}) {
                         </Text>
                         <View style={{ display: "flex", flexDirection: "row", alignItems: "space-between", marginTop: -15}}>
                             <View style={{ backgroundColor: "#14FF00", height: 14, width: 14, marginBottom: 5, marginRight: 5 }}/>
-                                <Text style={styles.buttonDateLabel}>
-                                    <Text style={styles.titleOptionLabel}>
-                                        Available
-                                    </Text>
+                            <Text style={styles.buttonDateLabel}>
+                                <Text style={styles.titleOptionLabel}>
+                                    Available
                                 </Text>
+                            </Text>
                             <View style={{ backgroundColor: "#A4A3A3", height: 14, width: 14, marginBottom: 5, marginLeft: 10, marginRight: 5 }}/>
-                                <Text style={styles.buttonDateLabel}>
-                                    <Text style={styles.titleOptionLabel}>
-                                        Occupied
-                                    </Text>
+                            <Text style={styles.buttonDateLabel}>
+                                <Text style={styles.titleOptionLabel}>
+                                    Occupied
                                 </Text>
+                            </Text>
                         </View>
                     </View>
                 </View>
             </View>
             <ScrollView style={{ height: '100%' }}>
-            <View style={styles.transparentSeats}>
+                <View style={styles.transparentSeats}>
                     {[1,21,41].map(items => (
                         <View style={{ marginBottom: 10 }}>
                             {[items,items+5,items+10,items+15].map(item => (
@@ -103,7 +103,7 @@ export default function SeatReservation({back, data, backData}) {
                                                 <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
                                             </View>
                                         </TouchableOpacity>
-                                    :
+                                        :
                                         <TouchableOpacity key={item} onPress={() => handleSeat(item)}>
                                             <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                 <Text> { (item) < 10 ? "A0" + (item) : "A" + (item) } </Text>
@@ -116,7 +116,7 @@ export default function SeatReservation({back, data, backData}) {
                                                 <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
                                             </View>
                                         </TouchableOpacity>
-                                    :
+                                        :
                                         <TouchableOpacity key={item+1} onPress={() => handleSeat(item + 1)}>
                                             <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                 <Text> { (item + 1) < 10 ? "A0" + (item + 1) : "A" + (item + 1) } </Text>
@@ -129,7 +129,7 @@ export default function SeatReservation({back, data, backData}) {
                                                 <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
                                             </View>
                                         </TouchableOpacity>
-                                    :
+                                        :
                                         <TouchableOpacity key={item+2} onPress={() => handleSeat(item + 2)}>
                                             <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                 <Text> { (item + 2) < 10 ? "A0" + (item + 4) : "A" + (item + 2) } </Text>
@@ -143,7 +143,7 @@ export default function SeatReservation({back, data, backData}) {
                                                     <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
                                                 </View>
                                             </TouchableOpacity>
-                                        :
+                                            :
                                             <TouchableOpacity key={item+3} onPress={() => handleSeat(item + 3)}>
                                                 <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                     <Text> { (item + 3) < 10 ? "A0" + (item + 3) : "A" + (item + 3) } </Text>
@@ -156,7 +156,7 @@ export default function SeatReservation({back, data, backData}) {
                                                     <Image source={require('../../assets/icons/circle-check.png')} style={styles.logo} />
                                                 </View>
                                             </TouchableOpacity>
-                                        :
+                                            :
                                             <TouchableOpacity key={item+4} onPress={() => handleSeat(item + 4)}>
                                                 <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                     <Text> { (item + 4) < 10 ? "A0" + (item + 4) : "A" + (item + 4) } </Text>
@@ -168,7 +168,7 @@ export default function SeatReservation({back, data, backData}) {
                             ))}
                         </View>
                     ))}
-            </View>
+                </View>
             </ScrollView>
             <View style={styles.continueButton}>
                 {occupied.length < 1 ?
