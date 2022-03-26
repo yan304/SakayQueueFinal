@@ -143,13 +143,17 @@ export default function Dashboard({back}) {
                                  coordinate={busOneLocation}
                                  title={"Bus Location"}
                                  description={"Bus 1"}
-                             />
+                             >
+                                 <Image source={require('../../assets/icons/bus-1.png')} style={{height: 35, width:35 }} />
+                             </Marker>
                              <Marker
                                  key={3}
                                  coordinate={busTwoLocation}
                                  title={"Bus Location"}
                                  description={"Bus 2"}
-                             />
+                             >
+                                 <Image source={require('../../assets/icons/bus-2.png')} style={{height: 35, width:35 }} />
+                             </Marker>
                          </MapView>
                      </View>
                  </View>

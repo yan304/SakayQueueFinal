@@ -136,7 +136,9 @@ export default function Conductor({back}) {
                                     coordinate={myLocation}
                                     title={"Bus Location"}
                                     description={"Bus 1"}
-                                />
+                                >
+                                    <Image source={require('../../assets/icons/bus-1.png')} style={{height: 35, width:35 }} />
+                                </Marker>
                             </MapView>
                         </View>
                     </View>

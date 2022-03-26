@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import MapView, {Marker} from 'react-native-maps';
 import SeatReservation from './SeatReservation'
 import ConfirmReservation from './ConfirmReservation'
+import { fetchFunc } from '../../src/config';
 import {ImageBackground, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity} from "react-native";
 import GetLocation from "react-native-get-location";
 
@@ -17,8 +18,12 @@ export default function AvailableRoutes({back, allBack}) {
         latitude: 37.78825,
         longitude: -122.4324,
     });
+    const [busOneLocation, setBusOneLocation] = useState(myLocation);
+    const [busTwoLocation, setBusTwoLocation] = useState(myLocation);
 
     useEffect(() => {
+        fetchFunc(setBusOneLocation, "busOneLocation");
+        fetchFunc(setBusTwoLocation, "busTwoLocation");
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
@@ -84,6 +89,20 @@ export default function AvailableRoutes({back, allBack}) {
                              coordinate={myLocation}
                              title={"Location"}
                              description={"Me"}
+                         />
+                         <Marker
+                             key={2}
+                             coordinate={busOneLocation}
+                             title={"Bus Location"}
+                             description={"Bus 1"}
+                         >
+                             <Image source={require('../../assets/icons/bus-1.png')} style={{height: 35, width:35 }} />
+                         </Marker>
+                         <Marker
+                             key={3}
+                             coordinate={busTwoLocation}
+                             title={"Bus Location"}
+                             description={"Bus 2"}
                          />
                      </MapView>
                  </View>
