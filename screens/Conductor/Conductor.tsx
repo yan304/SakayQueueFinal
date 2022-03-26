@@ -1,24 +1,42 @@
 import React, { useState, useEffect } from "react";
 import GetLocation from 'react-native-get-location'
-import { createFunc, updateUserFunc, fetchFunc } from '../../src/config';
+import { updateBusFunc } from '../../src/config';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import SeatManagement from "./SeatManagement";
 import MenuScreen from "../MenuScreen";
+import FareDiscounts from "./FareDiscounts";
 import { ImageBackground, Image, StyleSheet, TouchableOpacity, Text, View, Alert, Dimensions   } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Conductor({back}) {
     const [seatManagementState, setSeatManagementState] = useState(false);
     const [menuState, setMenuState] = useState(false);
+    const [fairDiscountState, setFairDiscountState] = useState(false);
+
+    const [currentUser, setCurrentUser] = useState(null);
+    const [currentConductorBus, setCurrentConductorBus] = useState();
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('userCredentials')
+            jsonValue != null ? setCurrentUser(JSON.parse(jsonValue)) : null;
+        } catch(e) {
+            console.log(e);
+        }
+    }
 
     const [myLocation, setMyLocation] = useState({
         latitude: 37.78825,
         longitude: -122.4324,
     });
-    const [busOneLocation, setBusOneLocation] = useState(myLocation);
-    const [busTwoLocation, setBusTwoLocation] = useState(myLocation);
 
     useEffect(() => {
+        getData();
+        getCurrentLocation();
+    }, []);
+
+    const getCurrentLocation = () => {
         GetLocation.getCurrentPosition({
             enableHighAccuracy: true,
             timeout: 15000,
@@ -33,7 +51,26 @@ export default function Conductor({back}) {
                 const { code, message } = error;
                 console.warn(code, message);
             })
-    }, []);
+    }
+
+    useEffect(() => {
+        if (currentUser) {
+            confirmation();
+        }
+    }, [myLocation])
+
+    useEffect(() => {
+        if (currentUser) {
+            setCurrentConductorBus(currentUser.username.includes("conductor_one") ? "A01" : "A02");
+        }
+    }, [currentUser])
+
+    const confirmation = () => {
+        updateBusFunc({
+            latitude: myLocation.latitude,
+            longitude: myLocation.longitude,
+        }, currentUser.username.includes("conductor_one") ? "busOneLocation" : "busTwoLocation" )
+    }
 
     const Countdown = () => {
         const [timeLeft, setTimeLeft] = useState(5);
@@ -45,8 +82,9 @@ export default function Conductor({back}) {
         }, []);
 
         if (timeLeft === 0) {
-            fetchFunc(setBusOneLocation, "busOneLocation");
-            fetchFunc(setBusTwoLocation, "busTwoLocation");
+            getCurrentLocation();
+            // fetchFunc(setBusOneLocation, "busOneLocation");
+            // fetchFunc(setBusTwoLocation, "busTwoLocation");
         }
         return true;
     };
@@ -55,14 +93,25 @@ export default function Conductor({back}) {
         setSeatManagementState(true);
     }
 
+    const handleClose = () => {
+        setMenuState(false);
+        setFairDiscountState(false);
+    }
+
     const handleMenu = () => {
         setMenuState(false);
     }
 
+    const handleFairDiscounts = () => {
+        setMenuState(true);
+        setFairDiscountState(true);
+    }
+
     return (
-        menuState ? <MenuScreen back={() => handleMenu()} logout={back}/> :
+        menuState ? fairDiscountState ? <FareDiscounts back={() => handleClose()}/> :
+                <MenuScreen back={() => handleMenu()} logout={back}/> :
         seatManagementState ?
-            <SeatManagement back={() => setSeatManagementState(false)} data={"A01"} backData={(e,k) => console.log(e,k)}/>
+            <SeatManagement back={() => setSeatManagementState(false)} data={currentConductorBus} backData={(e,k) => console.log(e,k)}/>
             :
             <View style={styles.container}>
                 <Countdown />
@@ -83,44 +132,22 @@ export default function Conductor({back}) {
                                 }}
                             >
                                 <Marker
-                                    key={1}
-                                    coordinate={myLocation}
-                                    title={"Location"}
-                                    description={"Me"}
-                                />
-                                <Marker
                                     key={2}
-                                    coordinate={busOneLocation}
+                                    coordinate={myLocation}
                                     title={"Bus Location"}
                                     description={"Bus 1"}
-                                />
-                                <Marker
-                                    key={3}
-                                    coordinate={busTwoLocation}
-                                    title={"Bus Location"}
-                                    description={"Bus 2"}
                                 />
                             </MapView>
                         </View>
                     </View>
                     <View style={styles.mainTransparent}>
                         <View style={styles.transparent}>
-                            <View style={{ display: "flex", flexDirection: "row"}}>
-                                <Text style={styles.buttonStyle}>
-                                    Routes &{"\n"} Reservation
-                                </Text>
-                                <Text style={styles.ticketButtonStyle}>
-                                    My Ticket
-                                </Text>
-                            </View>
-                            <View style={{ display: "flex", flexDirection: "row"}}>
-                                <Text style={styles.anotherButton}>
-                                    Fair &{"\n"} Discounts
+                                <Text style={styles.anotherButton} onPress={() => handleFairDiscounts()}>
+                                    Fair & Discounts
                                 </Text>
                                 <Text style={styles.buttonStyle} onPress={() => handleSeatManagement()}>
-                                    Seat{"\n"} Management
+                                    Seat Management
                                 </Text>
-                            </View>
                         </View>
                     </View>
                 </ImageBackground>
@@ -195,10 +222,10 @@ const styles = StyleSheet.create({
         marginBottom: 170,
     },
     buttonStyle: {
-        padding: 8,
-        fontSize: 20,
+        padding: 12,
+        fontSize: 30,
         margin: 5,
-        width: "50%",
+        width: "85%",
         marginTop: 10,
         color: "white",
         display: "flex",
@@ -209,9 +236,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#177FF4",
     },
     anotherButton: {
-        padding: 8,
-        fontSize: 20,
+        padding: 12,
+        fontSize: 30,
         margin: 5,
+        width: "85%",
         marginTop: 10,
         color: "white",
         display: "flex",
@@ -219,7 +247,7 @@ const styles = StyleSheet.create({
         borderRadius: 19,
         fontWeight: "700",
         textAlign: "center",
-        backgroundColor: "#177FF4",
+        backgroundColor: "#F9AD10",
     },
     ticketButtonStyle: {
         padding: 8,

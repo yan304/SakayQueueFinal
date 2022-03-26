@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
-import { fetchFunc } from '../../src/config';
+import { fetchFunc, updateBusFunc } from '../../src/config';
 import { Icon } from 'react-native-elements';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Image} from "react-native";
 
@@ -56,9 +56,19 @@ export default function SeatManagement({back, data, backData}) {
         if (busOneData?.seatBooked) {
             if (busOneData.seatBooked.length > 0) {
                 setOccupied(busOneData.seatBooked);
+                setReserved(busOneData.reserved);
             }
         }
     }, [busOneData]);
+
+    const handleSave = (e,c) => {
+        console.log(e,c);
+        updateBusFunc({
+            name: data,
+            reserved: c,
+            seatBooked: e,
+        }, data == "A01" ? "busOneData" : "busTwoData" )
+    }
 
     return <View>
             <View style={styles.backButton}>
@@ -122,7 +132,7 @@ export default function SeatManagement({back, data, backData}) {
                                             :
                                                 <TouchableOpacity key={item} onPress={() => handleSeat(item)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                        <Text> { item < 10 ? "A0" + item : "A" + item } </Text>
+                                                        <Text style={{ fontWeight: "700", paddingLeft: 4}}> { item < 10 ? "A0" + item : "A" + item } </Text>
                                                     </View>
                                                 </TouchableOpacity>
                                     }
@@ -142,7 +152,7 @@ export default function SeatManagement({back, data, backData}) {
                                             :
                                                 <TouchableOpacity key={item+1} onPress={() => handleSeat(item + 1)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                        <Text> { (item + 1) < 10 ? "A0" + (item + 1) : "A" + (item + 1) } </Text>
+                                                        <Text style={{ fontWeight: "700", paddingLeft: 4}}> { (item + 1) < 10 ? "A0" + (item + 1) : "A" + (item + 1) } </Text>
                                                     </View>
                                                 </TouchableOpacity>
                                     }
@@ -162,7 +172,7 @@ export default function SeatManagement({back, data, backData}) {
                                             :
                                                 <TouchableOpacity key={item+2} onPress={() => handleSeat(item + 2)}>
                                                     <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                        <Text> { (item + 2) < 10 ? "A0" + (item + 2) : "A" + (item + 2) } </Text>
+                                                        <Text style={{ fontWeight: "700", paddingLeft: 4}}> { (item + 2) < 10 ? "A0" + (item + 2) : "A" + (item + 2) } </Text>
                                                     </View>
                                                 </TouchableOpacity>
                                     }
@@ -183,7 +193,7 @@ export default function SeatManagement({back, data, backData}) {
                                                 :
                                                     <TouchableOpacity key={item+3} onPress={() => handleSeat(item + 3)}>
                                                         <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                            <Text> { (item + 3) < 10 ? "A0" + (item + 3) : "A" + (item + 3) } </Text>
+                                                            <Text style={{ fontWeight: "700", paddingLeft: 4}}> { (item + 3) < 10 ? "A0" + (item + 3) : "A" + (item + 3) } </Text>
                                                         </View>
                                                     </TouchableOpacity>
                                         }
@@ -203,7 +213,7 @@ export default function SeatManagement({back, data, backData}) {
                                                 :
                                                     <TouchableOpacity key={item+4} onPress={() => handleSeat(item + 4)}>
                                                         <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center"}}>
-                                                            <Text> { (item + 4) < 10 ? "A0" + (item + 4) : "A" + (item + 4) } </Text>
+                                                            <Text style={{ fontWeight: "700", paddingLeft: 4}}> { (item + 4) < 10 ? "A0" + (item + 4) : "A" + (item + 4) } </Text>
                                                         </View>
                                                     </TouchableOpacity>
                                         }
@@ -214,19 +224,11 @@ export default function SeatManagement({back, data, backData}) {
                     ))}
                 </View>
                 <View style={styles.transparent}>
-                    {occupied.length < 1 ?
-                        <TouchableOpacity style={styles.ticketDisabledButtonStyle }>
-                            <Text style={styles.buttonLabel}>
-                                Continue
-                            </Text>
-                        </TouchableOpacity>
-                        :
-                        <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => backData(occupied,reserved)}>
-                            <Text style={styles.buttonLabel}>
-                                Update
-                            </Text>
-                        </TouchableOpacity>
-                    }
+                    <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => handleSave(occupied,reserved)}>
+                        <Text style={styles.buttonLabel}>
+                            Update
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
@@ -279,7 +281,7 @@ const styles = StyleSheet.create({
     },
     backFont: {
         fontSize: 15,
-        marginTop: -1
+        marginTop: 1
     },
     logo: {
         width: 25,

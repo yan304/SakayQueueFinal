@@ -19,7 +19,7 @@ export default function MenuScreen({back, logout}) {
                 <Image source={require('../assets/icons/nav-menu.png')} style={styles.menu} />
             </TouchableOpacity>
             <View style={styles.centerContainer}>
-                <Image source={require('../assets/images/profile.png')} style={styles.profile} />
+                <Image source={require('../assets/images/bus-logo2.png')} style={styles.profile} />
             </View>
             <View style={styles.centerContainer}>
                 <Text style={styles.nameStyle}>
@@ -27,9 +27,23 @@ export default function MenuScreen({back, logout}) {
                 </Text>
             </View>
             <View style={styles.centerContainer}>
-                <Text style={styles.gmailStyle}>
-                    sakayqueue@gmail.com
-                </Text>
+                <View style={{ backgroundColor: "#ADADAD50", borderRadius: 10, padding: 10, width: "60%", marginTop: 30}}>
+                    <Text style={styles.gmailStyle}>
+                        Send Us Feedback
+                    </Text>
+                    <View style={{ display: "flex", flexDirection: "row"}}>
+                        <Image source={require('../assets/images/facebook.png')} style={{ marginLeft: "10%", width: 20, height: 20}} />
+                        <Text style={styles.linkStyle}>
+                            @sakayqueue
+                        </Text>
+                    </View>
+                    <View style={{ display: "flex", flexDirection: "row"}}>
+                        <Image source={require('../assets/images/gmail.png')} style={{ marginLeft: "10%", width: 20, height: 15}}  />
+                        <Text style={styles.linkStyle}>
+                            sakayqueue@gmail.com
+                        </Text>
+                    </View>
+                </View>
             </View>
             <TouchableOpacity style={styles.logoutContainer} onPress={() => handleLogout()}>
                 <View style={styles.logoutButton}>
@@ -81,12 +95,17 @@ const styles = StyleSheet.create({
     },
     gmailStyle: {
         fontSize: 20,
-        fontWeight: "700",
+        textAlign: "center"
+    },
+    linkStyle: {
+        fontSize: 15,
+        paddingTop: 2,
+        paddingLeft: "3%"
     },
     logoutStyle: {
         fontSize: 20,
         color: "white",
-        padding: 5,
+        padding: 12,
         fontWeight: "700",
         textAlign: "center",
     },

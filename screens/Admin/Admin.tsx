@@ -149,17 +149,14 @@ export default function Admin({back}) {
                         <View style={styles.mainTransparent}>
                             <View style={styles.transparent}>
                                 <View style={{ display: "flex", flexDirection: "row"}}>
-                                    <Text style={styles.buttonStyle}>
-                                        Routes &{"\n"} Reservation
+                                    <Text style={styles.ticketButtonStyle}>
+                                        Fair &{"\n"} Discounts
                                     </Text>
-                                    <Text style={styles.ticketButtonStyle} onPress={() => handleSeatManagement()}>
+                                    <Text style={styles.routeButtonStyle} onPress={() => handleSeatManagement()}>
                                         Bus Routes
                                     </Text>
                                 </View>
                                 <View style={{ display: "flex", flexDirection: "row"}}>
-                                    <Text style={styles.anotherButton} onPress={() => printReciept()}>
-                                        Fair &{"\n"} Discounts
-                                    </Text>
                                     <Text style={styles.buttonStyle} onPress={() => connectBluetooth()}>
                                         Reconnect
                                     </Text>
@@ -238,10 +235,10 @@ const styles = StyleSheet.create({
         marginBottom: 170,
     },
     buttonStyle: {
-        padding: 8,
+        padding: 12,
         fontSize: 20,
         margin: 5,
-        width: "50%",
+        width: "80%",
         marginTop: 10,
         color: "white",
         display: "flex",
@@ -264,12 +261,30 @@ const styles = StyleSheet.create({
         textAlign: "center",
         backgroundColor: "#177FF4",
     },
-    ticketButtonStyle: {
+    routeButtonStyle: {
         padding: 8,
+        marginLeft: 5,
         paddingTop: 18,
         fontSize: 20,
         marginTop: 10,
-        width: "35%",
+        width: "40%",
+        color: "white",
+        display: "flex",
+        marginBottom: 15,
+        borderRadius: 19,
+        fontWeight: "700",
+        textAlign: "center",
+        alignItems: "center",
+        alignContent: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        backgroundColor: "#F9AD10",
+    },
+    ticketButtonStyle: {
+        padding: 8,
+        fontSize: 20,
+        marginTop: 10,
+        width: "40%",
         color: "white",
         display: "flex",
         marginBottom: 15,

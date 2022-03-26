@@ -65,7 +65,7 @@ export default function InputLogin({login, register, forgot}) {
                     Welcome Back!
                 </Text>
                 <View style={styles.inputContainer}>
-                    <Text style={styles.inputLabel}>Name</Text>
+                    <Text style={styles.inputLabel}>Email</Text>
                     <TextInput
                         style={styles.input}
                         onChangeText={onUsernameChange}
@@ -74,6 +74,7 @@ export default function InputLogin({login, register, forgot}) {
                     />
                     <Text style={styles.inputLabel}>Password</Text>
                     <TextInput
+                        secureTextEntry={true}
                         style={styles.input}
                         onChangeText={onPasswordChange}
                         value={password}
