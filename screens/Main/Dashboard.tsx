@@ -45,6 +45,11 @@ export default function Dashboard({back}) {
         setRoutesReservationState(true);
     }
 
+    const handleAllBack = () => {
+        handleBack();
+        handleMyTicket();
+    }
+
     const [myLocation, setMyLocation] = useState({
         latitude: 37.78825,
         longitude: -122.4324,
@@ -105,7 +110,7 @@ export default function Dashboard({back}) {
                 <MyTicket back={ () => handleBack()}/>
                 :
                 routesReservationState ?
-                    <RoutesReservation back={ () => handleBack()}/>
+                    <RoutesReservation back={ () => handleBack()} allBack={() => handleAllBack()}/>
                     :
                     <FareDiscounts back={ () => handleBack()}/>
             :

@@ -27,7 +27,7 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
         confirmation();
         await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);
         await BluetoothEscposPrinter.setBlob(0);
-        await  BluetoothEscposPrinter.printText("Sakay Queue\n\r",{
+        await  BluetoothEscposPrinter.printText("SAKAY QUEUE\n\r",{
             encoding:'GBK',
             codepage:0,
             widthtimes:3,
@@ -35,7 +35,7 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
             fonttype:1
         });
         await BluetoothEscposPrinter.setBlob(0);
-        await  BluetoothEscposPrinter.printText("Rural\n\r",{
+        await  BluetoothEscposPrinter.printText("Sakay Queue Bus Transport System\n\r",{
             encoding:'GBK',
             codepage:0,
             widthtimes:0,
@@ -43,26 +43,30 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
             fonttype:1
         });
         await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.LEFT);
-        await  BluetoothEscposPrinter.printText("Sakay Queue：Pabama\n\r",{});
-        await  BluetoothEscposPrinter.printText("Reciept Number：123456789\n\r",{});
-        await  BluetoothEscposPrinter.printText("Machine：Terminal\n\r",{});
+        await  BluetoothEscposPrinter.printText("Bus Code：BUS - \n\r",{});
+        await  BluetoothEscposPrinter.printText("Bus Type：AIRCON \n\r",{});
+        await  BluetoothEscposPrinter.printText("Slip Number：0001 \n\r",{});
+        await  BluetoothEscposPrinter.printText("Route：CDO TO ILIGAN \n\r",{});
+        await  BluetoothEscposPrinter.printText("Origin：CDO\n\r",{});
+        await  BluetoothEscposPrinter.printText("Destination：ILIGAN\n\r",{});
         await  BluetoothEscposPrinter.printText("--------------------------------\n\r",{});
-        let columnWidths = [12,6,6,8];
+        let columnWidths = [12,8,12];
         await BluetoothEscposPrinter.printColumn(columnWidths,
             [BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.CENTER,BluetoothEscposPrinter.ALIGN.CENTER,BluetoothEscposPrinter.ALIGN.RIGHT],
-            ["Seat",'Qty','Price','Total'],{});
+            ["Seat",'Qty/Class','Fare'],{});
         data[1].map(async (item) => {
             // perSeat(item);
             await BluetoothEscposPrinter.printColumn(columnWidths,
                 [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.CENTER, BluetoothEscposPrinter.ALIGN.RIGHT],
-                [`${item}`, '1', '160', '160'], {});
+                [`A${item}`, '1 REGULAR', '160'], {});
             await BluetoothEscposPrinter.printText("\n\r", {})
         });
         await  BluetoothEscposPrinter.printText("--------------------------------",{});
         await  BluetoothEscposPrinter.printText("\r\r\r",{});
         await BluetoothEscposPrinter.printColumn([12,8,12],
             [BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.RIGHT],
-            ["Total",`${data[1].length}`,`${data[1].length * 160}`],{});
+            ["TOTAL",``,`PHP ${data[1].length * 160}`],{});
+        await  BluetoothEscposPrinter.printText("Please Keep Ticket for Inspection\n\r",{});
         await  BluetoothEscposPrinter.printText("\n\n\n\n\r",{});
     }
 

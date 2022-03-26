@@ -5,9 +5,10 @@ import ConfirmReservation from './ConfirmReservation'
 import {ImageBackground, Image, StyleSheet, Text, View, Dimensions, TouchableOpacity} from "react-native";
 import GetLocation from "react-native-get-location";
 
-export default function AvailableRoutes({back}) {
+export default function AvailableRoutes({back, allBack}) {
     const [bus, setBus] = useState('');
     const [seatData, setSeatData] = useState();
+    const [reserved, setReserved] = useState([]);
     const [userSeatData, setUserSeatData] = useState();
     const [mainState, setMainState] = useState(false);
     const [confirmReservationState, setConfirmReservationState] = useState(false);
@@ -46,18 +47,19 @@ export default function AvailableRoutes({back}) {
         setMainState(true);
     }
 
-    const handleConfirm = (e,c) => {
+    const handleConfirm = (e,c,k) => {
         setSeatData(e);
         setUserSeatData(c);
+        setReserved(k);
         setConfirmReservationState(true);
     }
 
     return (
         mainState ?
             confirmReservationState ?
-                <ConfirmReservation data={[seatData, userSeatData]} back={() => handleBack()} busName={bus} allBack={back}/>
+                <ConfirmReservation data={[seatData, userSeatData, reserved]} back={() => handleBack()} busName={bus} allBack={allBack}/>
             :
-                <SeatReservation back={() => handleBack()} data={bus} backData={(e,c) => handleConfirm(e,c)}/>
+                <SeatReservation back={() => handleBack()} data={bus} backData={(e,c,k) => handleConfirm(e,c,k)}/>
         :
          <View style={styles.image}>
              <View style={styles.mapContainer}>

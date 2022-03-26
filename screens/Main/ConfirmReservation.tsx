@@ -2,24 +2,70 @@ import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
 import { updateBusFunc } from '../../src/config';
 import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Alert, Image} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ConfirmReservation({back, data, busName, allBack}) {
-    const [search, onSearch] = useState("")
+    const [search, onSearch] = useState("");
+    const [userReservation, setUserReservation] = useState("");
+    const [oldData, setOldData] = useState([]);
+
+    useEffect(() => {
+        getData();
+    }, [])
+
+    useEffect(() => {
+        let datas = [];
+        if (userReservation) {
+            userReservation.seatBooked.map((item) => (
+                datas.push(item)
+            ))
+            data[1].map((item) => (
+                datas.push(item)
+            ))
+            setOldData(datas);
+        }
+    }, [userReservation])
 
     const confirmation = () => {
         updateBusFunc({
             name: busName,
             seatBooked: data[0],
+            reserved: data[2],
         }, busName == "A01" ? "busOneData" : "busTwoData" )
+        storeData();
         allBack();
+    }
+
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('userReservation')
+            jsonValue != null ? setUserReservation(JSON.parse(jsonValue)) : null;
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    const storeData = async () => {
+        try {
+            const jsonValue = JSON.stringify({
+                busCode: busName,
+                seatBooked: oldData
+            })
+            await AsyncStorage.setItem('userReservation', jsonValue)
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
         <View style={{ height: "100%" }}>
             <View style={styles.backButton}>
-                <Button icon='arrow-left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
-                    Confirm Reservation
-                </Button>
+                <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
+                    <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                    <Text style={styles.backFont}>
+                        Confirm Reservation
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
@@ -267,6 +313,17 @@ const styles = StyleSheet.create({
         backgroundColor: "#F3F1F1",
         paddingBottom: 30,
         paddingLeft: 10,
+    },
+    backlogo: {
+        width: 10,
+        height: 15,
+        marginRight: 10,
+        marginTop: 2,
+        marginLeft: 5
+    },
+    backFont: {
+        fontSize: 15,
+        marginTop: 1
     },
     forgotFont: {
         fontSize: 28,

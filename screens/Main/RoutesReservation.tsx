@@ -4,15 +4,21 @@ import AvailableRoutes from './AvailableRoutes'
 import { Button } from 'react-native-paper';
 import {TextInput, StyleSheet, TouchableOpacity, Text, View, Alert, Image} from "react-native";
 
-export default function RoutesReservation({back}) {
+export default function RoutesReservation({back, allBack}) {
     const [search, onSearch] = useState("");
     const [availableRoutesState, setAvailableRoutesState] = useState(false);
 
     const handleAvailableRoutes = () => {
         setAvailableRoutesState(true);
     }
+
+    const handleAllBack = () => {
+        allBack();
+        setAvailableRoutesState(false)
+    }
+
     return (
-        availableRoutesState ? <AvailableRoutes back={() => setAvailableRoutesState(false)}/> :
+        availableRoutesState ? <AvailableRoutes back={() => setAvailableRoutesState(false)} allBack={() => handleAllBack()}/> :
             <View>
                 <View style={styles.backButton}>
                     <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>

@@ -5,6 +5,7 @@ import {TouchableOpacity, StyleSheet, ScrollView, Text, View, Image} from "react
 
 export default function SeatReservation({back, data, backData}) {
     const [search, onSearch] = useState("");
+    const [reserved, setReserved] = useState([]);
     const [occupied, setOccupied] = useState([]);
     const [userSeat, setUserSeat] = useState([]);
     const [busOneData, setBusOneData] = useState([]);
@@ -13,6 +14,17 @@ export default function SeatReservation({back, data, backData}) {
         setOccupied([]);
         fetchFunc(setBusOneData, data == "A01" ? "busOneData" : "busTwoData");
     }, [])
+
+    useEffect(() => {
+        let busSeat = [];
+        reserved.map((item) => (
+            busSeat.push(item)
+        ))
+        userSeat.map((item) => (
+            busSeat.push(item)
+        ))
+        setReserved(busSeat);
+    }, [userSeat])
 
     const handleSeat = (seat) => {
         if (busOneData?.seatBooked) {
@@ -52,6 +64,7 @@ export default function SeatReservation({back, data, backData}) {
         if (busOneData?.seatBooked) {
             if (busOneData.seatBooked.length > 0) {
                 setOccupied(busOneData.seatBooked);
+                setReserved(busOneData.reserved);
             }
         }
     }, [busOneData])
@@ -178,7 +191,7 @@ export default function SeatReservation({back, data, backData}) {
                         </Text>
                     </TouchableOpacity>
                     :
-                    <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => backData(occupied, userSeat)}>
+                    <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => backData(occupied, userSeat, reserved)}>
                         <Text style={styles.buttonLabel}>
                             Continue
                         </Text>
