@@ -5,6 +5,7 @@ import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import MenuScreen from "../MenuScreen";
 import AdminRoutes from "./AdminRoutes";
+import AdminFareDiscounts from "./AdminFairDiscounts";
 import {BluetoothManager,BluetoothEscposPrinter,BluetoothTscPrinter} from 'react-native-bluetooth-escpos-printer';
 import { ImageBackground, Image, StyleSheet, TouchableOpacity, Text, View, Alert, Dimensions   } from "react-native";
 
@@ -12,6 +13,7 @@ export default function Admin({back}) {
     const [seatManagementState, setSeatManagementState] = useState(false);
     const [menuState, setMenuState] = useState(false);
     const [state, setState] = useState();
+    const [fairDiscounts, setFairDiscounts] = useState(false);
 
     const [myLocation, setMyLocation] = useState({
         latitude: 37.78825,
@@ -102,11 +104,16 @@ export default function Admin({back}) {
         setMenuState(false);
     }
 
+    const handleFairDiscounts = () => {
+        setFairDiscounts(false);
+    }
+
     return (
         menuState ? <MenuScreen back={() => handleMenu()} logout={back}/> :
             seatManagementState ?
                 <AdminRoutes back={() => setSeatManagementState(false)}/>
                 :
+                fairDiscounts ? <AdminFareDiscounts back={() => handleFairDiscounts()}/> :
                 <View style={styles.container}>
                     <Countdown />
                     <ImageBackground source={require('../../assets/images/Login.png')} resizeMode="cover" style={styles.image}
@@ -153,7 +160,7 @@ export default function Admin({back}) {
                         <View style={styles.mainTransparent}>
                             <View style={styles.transparent}>
                                 <View style={{ display: "flex", flexDirection: "row"}}>
-                                    <Text style={styles.ticketButtonStyle}>
+                                    <Text style={styles.ticketButtonStyle} onPress={() => setFairDiscounts(true)}>
                                         Fair &{"\n"} Discounts
                                     </Text>
                                     <Text style={styles.routeButtonStyle} onPress={() => handleSeatManagement()}>

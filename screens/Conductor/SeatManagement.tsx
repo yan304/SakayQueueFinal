@@ -70,7 +70,7 @@ export default function SeatManagement({back, data, backData}) {
         }, data == "A01" ? "busOneData" : "busTwoData" )
     }
 
-    return <View>
+    return <View style={{ height: "100%" }}>
             <View style={styles.backButton}>
                 <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
                     <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
@@ -223,20 +223,34 @@ export default function SeatManagement({back, data, backData}) {
                         </View>
                     ))}
                 </View>
-                <View style={styles.transparent}>
-                    <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => handleSave(occupied,reserved)}>
-                        <Text style={styles.buttonLabel}>
-                            Update
-                        </Text>
-                    </TouchableOpacity>
-                </View>
             </ScrollView>
+            <View style={styles.continueButton}>
+                <TouchableOpacity style={styles.ticketButtonStyle} onPress={() => handleSave(occupied,reserved)}>
+                    <Text style={styles.buttonLabel}>
+                        Update
+                    </Text>
+                </TouchableOpacity>
+            </View>
         </View>
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    continueButton: {
+        padding: 8,
+        bottom: 5,
+        marginLeft: 20,
+        fontSize: 25,
+        width: "90%",
+        color: "white",
+        display: "flex",
+        marginBottom: 15,
+        borderRadius: 19,
+        fontWeight: "700",
+        position: 'absolute',
+        alignItems: "center",
     },
     ticketButtonStyle: {
         width: "90%",
@@ -280,8 +294,8 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     backFont: {
-        fontSize: 15,
-        marginTop: 1
+        fontSize: 20,
+        marginTop: -1
     },
     logo: {
         width: 25,

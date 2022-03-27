@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from 'react-native-paper';
 import {TextInput, StyleSheet, ScrollView, Text, View, Alert, Image, TouchableOpacity} from "react-native";
 
-export default function FareDiscounts({back}) {
+export default function AdminFareDiscounts({back}) {
     const [search, onSearch] = useState("");
     return (
         <View>
@@ -137,9 +137,9 @@ const styles = StyleSheet.create({
         marginTop: -1
     },
     dotStyle: {
-       width: 330,
-       height: 2,
-       marginTop: 10,
+        width: 330,
+        height: 2,
+        marginTop: 10,
         marginBottom: -10
     },
     fontStylesPlace: {
@@ -160,10 +160,10 @@ const styles = StyleSheet.create({
         fontWeight: "700",
     },
     titleBar: {
-      marginTop: 20,
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between"
+        marginTop: 20,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     transparent: {
         width: "100%",

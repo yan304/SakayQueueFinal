@@ -137,7 +137,11 @@ export default function Conductor({back}) {
                                     title={"Bus Location"}
                                     description={"Bus 1"}
                                 >
-                                    <Image source={require('../../assets/icons/bus-1.png')} style={{height: 35, width:35 }} />
+                                    {currentUser?.username.includes("conductor_one") ?
+                                        <Image source={require('../../assets/icons/new-bus-1.png')} style={{height: 35, width:35 }} />
+                                    :
+                                        <Image source={require('../../assets/icons/new-bus-2.png')} style={{height: 35, width:35 }} />
+                                    }
                                 </Marker>
                             </MapView>
                         </View>

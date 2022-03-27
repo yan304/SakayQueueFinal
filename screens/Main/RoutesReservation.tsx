@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     backFont: {
-        fontSize: 15,
+        fontSize: 20,
         marginTop: -1
     },
     buttonDateLabel: {

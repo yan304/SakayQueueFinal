@@ -16,11 +16,17 @@ export default function ConfirmReservation({back, data, busName, allBack}) {
     useEffect(() => {
         let datas = [];
         if (userReservation) {
-            userReservation.seatBooked.map((item) => (
-                datas.push(item)
-            ))
             data[1].map((item) => (
-                datas.push(item)
+                datas.push({
+                    code: busName,
+                    number: item
+                })
+            ))
+            userReservation.seatBooked.map((item) => (
+                datas.push({
+                    code: item?.code,
+                    number: item?.number
+                })
             ))
             setOldData(datas);
         }
@@ -124,7 +130,7 @@ export default function ConfirmReservation({back, data, busName, allBack}) {
                                             Bus No.
                                         </Text>
                                         <Text style={styles.buttonOtherLabel}>
-                                            BUS - A01
+                                            BUS - {busName}
                                         </Text>
                                     </View>
                                     <View>

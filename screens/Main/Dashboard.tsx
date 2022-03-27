@@ -144,7 +144,7 @@ export default function Dashboard({back}) {
                                  title={"Bus Location"}
                                  description={"Bus 1"}
                              >
-                                 <Image source={require('../../assets/icons/bus-1.png')} style={{height: 35, width:35 }} />
+                                 <Image source={require('../../assets/icons/new-bus-1.png')} style={{height: 39, width:39 }} />
                              </Marker>
                              <Marker
                                  key={3}
@@ -152,7 +152,7 @@ export default function Dashboard({back}) {
                                  title={"Bus Location"}
                                  description={"Bus 2"}
                              >
-                                 <Image source={require('../../assets/icons/bus-2.png')} style={{height: 35, width:35 }} />
+                                 <Image source={require('../../assets/icons/new-bus-2.png')} style={{height: 39, width:39 }} />
                              </Marker>
                          </MapView>
                      </View>

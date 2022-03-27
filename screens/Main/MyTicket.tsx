@@ -1,7 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { Button } from 'react-native-paper';
-import {TextInput, StyleSheet, ScrollView, Text, View, Alert, Image, TouchableOpacity, FlatList} from "react-native";
+import {
+    TextInput,
+    StyleSheet,
+    ScrollView,
+    Text,
+    View,
+    Alert,
+    Image,
+    TouchableOpacity,
+    FlatList,
+    Dimensions
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function MyTicket({back}) {
@@ -12,6 +23,7 @@ export default function MyTicket({back}) {
         getData();
     }, [])
 
+    console.log(userReservation);
     const getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem('userReservation')
@@ -20,71 +32,6 @@ export default function MyTicket({back}) {
             console.log(e);
         }
     }
-
-    const Item = ({ item }) => (
-        <View style={styles.transparent}>
-            <View style={styles.buttonStyle}>
-                <Text style={styles.buttonDateLabel}>
-                    December 6, 2021
-                </Text>
-                <View style={{ display: "flex", flexDirection: "row" }}>
-                    <View>
-                        <Text style={styles.buttonLabel}>
-                            From
-                        </Text>
-                        <Text style={styles.buttonPlaceLabel}>
-                            CDO
-                        </Text>
-                        <Text style={styles.buttonLabel}>
-                            01:00 PM
-                        </Text>
-                    </View>
-                    <View>
-                        <Image source={require('../../assets/images/Bus.png')} style={styles.logo}/>
-                    </View>
-                    <View>
-                        <Text style={styles.buttonLabel}>
-                            To
-                        </Text>
-                        <Text style={styles.buttonPlaceLabel}>
-                            Iligan
-                        </Text>
-                        <Text style={styles.buttonLabel}>
-                            03:00 PM
-                        </Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.otherInformation} onPress={() => Alert.alert('Discount')}>
-                <View style={{ display: "flex", flexDirection: "row" }}>
-                    <View style={{ width: "40%" }}>
-                        <Text style={styles.buttonLabel}>
-                            Passenger
-                        </Text>
-                        <Text style={styles.buttonOtherLabel}>
-                            Sakay Queue
-                        </Text>
-                    </View>
-                    <View style={{ width: "33%" }}>
-                        <Text style={styles.buttonLabel}>
-                            Bus No.
-                        </Text>
-                        <Text style={styles.buttonOtherLabel}>
-                            BUS - {userReservation?.busCode}
-                        </Text>
-                    </View>
-                    <View>
-                        <Text style={styles.buttonLabel}>
-                            Seat No.
-                        </Text>
-                        <Text style={styles.buttonOtherLabel}>
-                            {item}A
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        </View>
-    )
 
     return (
         <View>
@@ -102,14 +49,14 @@ export default function MyTicket({back}) {
                         My Ticket(s)
                     </Text>
                 </View>
-                <ScrollView style={{ height: "100%"}}>
+                <ScrollView style={{ height: Dimensions.get('window').height - 150}}>
                 {!Array.isArray(userReservation) &&
                     userReservation?.seatBooked.map((item) => (
                     item !== '' &&
                     <View style={styles.transparent}>
                         <View style={styles.buttonStyle}>
                             <Text style={styles.buttonDateLabel}>
-                                December 6, 2021
+                                March 28, 2022
                             </Text>
                             <View style={{ display: "flex", flexDirection: "row" }}>
                                 <View>
@@ -154,7 +101,7 @@ export default function MyTicket({back}) {
                                         Bus No.
                                     </Text>
                                     <Text style={styles.buttonOtherLabel}>
-                                        BUS - {userReservation?.busCode}
+                                        BUS - {item.code}
                                     </Text>
                                 </View>
                                 <View>
@@ -162,7 +109,7 @@ export default function MyTicket({back}) {
                                         Seat No.
                                     </Text>
                                     <Text style={styles.buttonOtherLabel}>
-                                        {item}A
+                                        {item.number < 10 ? `0${item.number}A` : `${item.number}A`}
                                     </Text>
                                 </View>
                             </View>
@@ -318,8 +265,8 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     backFont: {
-        fontSize: 15,
-        marginTop: 1
+        fontSize: 20,
+        marginTop: -1
     },
     forgotFont: {
         fontSize: 28,
