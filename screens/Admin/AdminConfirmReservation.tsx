@@ -15,14 +15,6 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
         allBack();
     }
 
-    const perSeat = async (seat) => {
-        let columnWidths = [12,6,6,8];
-        await BluetoothEscposPrinter.printColumn(columnWidths,
-            [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.CENTER, BluetoothEscposPrinter.ALIGN.RIGHT],
-            [`${seat}`, '1', '160', '160'], {});
-        await BluetoothEscposPrinter.printText("\n\r", {})
-    }
-
     const printReciept = async () => {
         confirmation();
         await BluetoothEscposPrinter.printerAlign(BluetoothEscposPrinter.ALIGN.CENTER);
@@ -52,10 +44,9 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
         await  BluetoothEscposPrinter.printText("--------------------------------\n\r",{});
         let columnWidths = [12,8,12];
         await BluetoothEscposPrinter.printColumn(columnWidths,
-            [BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.CENTER,BluetoothEscposPrinter.ALIGN.CENTER,BluetoothEscposPrinter.ALIGN.RIGHT],
+            [BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.CENTER,BluetoothEscposPrinter.ALIGN.RIGHT],
             ["Seat",'Qty/Class','Fare'],{});
         data[1].map(async (item) => {
-            // perSeat(item);
             await BluetoothEscposPrinter.printColumn(columnWidths,
                 [BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.LEFT, BluetoothEscposPrinter.ALIGN.CENTER, BluetoothEscposPrinter.ALIGN.RIGHT],
                 [`A${item}`, '1 REGULAR', '160'], {});
@@ -73,9 +64,12 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
     return (
         <View style={{ height: "100%"}}>
             <View style={styles.backButton}>
-                <Button icon='arrow-left' size={24} color="black" style={styles.backButtonStyle} onPress={back}>
-                    Confirm Reservation
-                </Button>
+                <TouchableOpacity onPress={back} style={{ display: "flex", flexDirection: "row", marginTop: 15, marginBottom: 10}}>
+                    <Image source={require('../../assets/icons/arrow.png')} style={styles.backlogo} />
+                    <Text style={styles.backFont}>
+                        Confirm Reservation
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.mainTransparent}>
                 <View style={styles.transparent}>
@@ -164,6 +158,17 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    backlogo: {
+        width: 10,
+        height: 15,
+        marginRight: 10,
+        marginTop: 2,
+        marginLeft: 5
+    },
+    backFont: {
+        fontSize: 20,
+        marginTop: -1
     },
     continueButton: {
         position: 'absolute',

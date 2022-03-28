@@ -16,33 +16,31 @@ export default function AdminReservation({back, data, backData}) {
 
     const handleSeat = (seat) => {
         if (busOneData?.seatBooked) {
-            if (busOneData.seatBooked.length > 0) {
-                if (!busOneData.seatBooked.includes(seat)) {
-                    if (occupied.includes(seat)) {
-                        var seatCount = [];
-                        occupied.map((item) =>
-                            item == seat ? null : seatCount.push(item)
-                        )
-                        setOccupied(seatCount);
-                        let userSeatCount = [];
-                        userSeat.map((item) =>
-                            item == seat ? null : userSeatCount.push(item)
-                        )
-                        setUserSeat(userSeatCount);
-                    } else {
-                        var count = [];
-                        occupied.map((item) =>
-                            item == seat ? null : count.push(item)
-                        )
-                        count.push(seat);
-                        setOccupied(count);
-                        let userSeatCount = [];
-                        userSeat.map((item) =>
-                            item == seat ? null : userSeatCount.push(item)
-                        )
-                        userSeatCount.push(seat);
-                        setUserSeat(userSeatCount);
-                    }
+            if (!busOneData.seatBooked.includes(seat)) {
+                if (occupied.includes(seat)) {
+                    var seatCount = [];
+                    occupied.map((item) =>
+                        item == seat ? null : seatCount.push(item)
+                    )
+                    setOccupied(seatCount);
+                    let userSeatCount = [];
+                    userSeat.map((item) =>
+                        item == seat ? null : userSeatCount.push(item)
+                    )
+                    setUserSeat(userSeatCount);
+                } else {
+                    var count = [];
+                    occupied.map((item) =>
+                        item == seat ? null : count.push(item)
+                    )
+                    count.push(seat);
+                    setOccupied(count);
+                    let userSeatCount = [];
+                    userSeat.map((item) =>
+                        item == seat ? null : userSeatCount.push(item)
+                    )
+                    userSeatCount.push(seat);
+                    setUserSeat(userSeatCount);
                 }
             }
         }
@@ -132,7 +130,7 @@ export default function AdminReservation({back, data, backData}) {
                                         :
                                         <TouchableOpacity key={item+2} onPress={() => handleSeat(item + 2)}>
                                             <View style={{ backgroundColor: "#14FF00", height: 30, width: 35, borderRadius: 5, margin: 3, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                                                <Text> { (item + 2) < 10 ? "A0" + (item + 4) : "A" + (item + 2) } </Text>
+                                                <Text> { (item + 2) < 10 ? "A0" + (item + 2) : "A" + (item + 2) } </Text>
                                             </View>
                                         </TouchableOpacity>
                                     }
@@ -201,7 +199,7 @@ const styles = StyleSheet.create({
         marginLeft: 5
     },
     backFont: {
-        fontSize: 15,
+        fontSize: 20,
         marginTop: -1
     },
     continueButton: {
@@ -217,11 +215,12 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         position: 'absolute',
         alignItems: "center",
-        backgroundColor: "#F9AD10",
+        // backgroundColor: "#F9AD10",
     },
     ticketButtonStyle: {
         width: "90%",
         display: "flex",
+        marginBottom: 15,
         borderRadius: 19,
         alignItems: "center",
         backgroundColor: "#F9AD10",
