@@ -56,7 +56,7 @@ export default function AdminConfirmReservation({back, data, busName, allBack}) 
         await  BluetoothEscposPrinter.printText("\r\r\r",{});
         await BluetoothEscposPrinter.printColumn([12,8,12],
             [BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.LEFT,BluetoothEscposPrinter.ALIGN.RIGHT],
-            ["TOTAL",`1`,`PHP ${data[1].length * 160}`],{});
+            ["TOTAL",``,`PHP ${data[1].length * 160}`],{});
         await  BluetoothEscposPrinter.printText("Please Keep Ticket for Inspection\n\r",{});
         await  BluetoothEscposPrinter.printText("\n\n\n\n\r",{});
     }
